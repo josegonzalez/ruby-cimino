@@ -1,0 +1,20 @@
+---
+layout: default
+---
+<div id="home">
+  <h1>{{ page.year }}</h1>
+  {% for m in (1..12) reversed %}
+    {% if page.collated_posts[page.year][m] %}
+      <h2>{{ m | date_to_month }}</h2>
+      <ul class="posts">
+        {% for d in (1..31) reversed %}
+          {% if page.collated_posts[page.year][m][d] %}
+            {% for p in page.collated_posts[page.year][m][d] reversed %}
+              <li><span>{{ p.date | date_to_string }}</span> &raquo; <a href="{{ p.url }}">{{ p.title }}</a></li>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+</div>
