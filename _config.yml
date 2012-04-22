@@ -1,0 +1,85 @@
+# ----------------------- #
+#           Site          #
+# ----------------------- #
+# Site-level configuration. Plugin which require extra
+# data should have that in plugin-specific configuration
+# All plugins should be able to depend upon these settings
+
+title:              Jekyll Blog
+author:             John Smith
+email:              mail@example.com
+theme:              classic
+
+# ----------------------- #
+#         Layouts         #
+# ----------------------- #
+# Anything specific to your layout can go here
+
+# ----------------------- #
+#   3rd Party Settings    #
+# ----------------------- #
+disqus_shortname:
+ga_tracking_id:
+
+# ----------------------- #
+#          Jekyll         #
+# ----------------------- #
+# All of these settings are required
+
+# Set this to true to disable plugins
+safe:               false
+# Enables or disables Jekyll from recreating the site when files are modified.
+regeneration:       true
+# Fires up a server that will host your _site directory
+server:             false
+# Changes the port that the Jekyll server will run on
+server_port:        4000
+# Serve website from a given base URL
+baseurl:            /
+# Sets site.url, useful for environment switching
+url:                http://example.com
+
+# Changes the directory where Jekyll will look to transform files
+source:             ./source
+# Changes the directory where Jekyll will write files to
+destination:        ./_site
+# Changes the directory where Jekyll will look for plugins
+plugins:            ./_plugins
+
+# Inclusion/exclusion of future dated posts
+future:             true
+# Produces an index for related posts. Install rb-gsl and libgsl to speed this up
+lsi:                true
+# Built-in Code highlighting with Pygments. Disabled because we use a plugin for this
+pygments:           false
+# Uses [engine] instead of Maruku. Use redcarpet since it's the new hotness
+markdown:           redcarpet
+# Controls the URLs that posts are generated with.
+permalink:          /:year/:month/:day/:title/
+# A list of directories and files to exclude from the conversion
+exclude:            README.textile Rakefile Gemfile Gemfile.lock requirements.txt
+
+# ----------------------- #
+#         Rakefile        #
+# ----------------------- #
+# This section holds Rakefile-specific configuration
+# Contents subject to change
+
+# SSH Connection info
+ssh_user:           deploy@example.com
+# Port to connect with
+ssh_port:           22
+# Deploy path to sync _site directory to
+deploy_path:        /var/www/example.com/
+# Port to serve
+serve_port:         4000
+# Default editor to use when creating new posts
+editor:             subl
+
+# ----------------------- #
+#         Plugins         #
+# ----------------------- #
+post_type:
+generic_index:
+backtick:
+  tag:              rainbow
