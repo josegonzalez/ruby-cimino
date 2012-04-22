@@ -7,7 +7,7 @@
 
 title:              Jekyll Blog
 author:             John Smith
-email:              mail@example.com
+email:              mail@example.dev
 theme:              classic
 
 # ----------------------- #
@@ -19,7 +19,16 @@ theme:              classic
 #   3rd Party Settings    #
 # ----------------------- #
 disqus_shortname:
+
 ga_tracking_id:
+
+github_user:
+github_forkme:
+
+twitter_user:
+
+flickr_user:
+
 
 # ----------------------- #
 #          Jekyll         #
@@ -37,7 +46,7 @@ server_port:        4000
 # Serve website from a given base URL
 baseurl:            /
 # Sets site.url, useful for environment switching
-url:                http://example.com
+url:                http://example.dev
 
 # Changes the directory where Jekyll will look to transform files
 source:             ./source
@@ -66,11 +75,11 @@ exclude:            README.textile Rakefile Gemfile Gemfile.lock requirements.tx
 # Contents subject to change
 
 # SSH Connection info
-ssh_user:           deploy@example.com
+ssh_user:           deploy@example.dev
 # Port to connect with
 ssh_port:           22
 # Deploy path to sync _site directory to
-deploy_path:        /var/www/example.com/
+deploy_path:        /var/www/example.dev/
 # Port to serve
 serve_port:         4000
 # Default editor to use when creating new posts
@@ -81,5 +90,7 @@ editor:             subl
 # ----------------------- #
 post_type:
 generic_index:
+  category:
+    title_prefix:   'Category: '
 backtick:
   tag:              rainbow
