@@ -4,8 +4,9 @@ layout: nil
 /* TEAM */
 
 	Author: {{ site.author }}
-	Site: {{ site.url }}
-	{% if site.twitter_user %}Twitter: @{{twitter_user }}{% endif %}
+	Site: {{ site.url }}{% if site.github_user %}
+	Github: {{ site.github_user }}{% endif %}{% if site.twitter_user %}
+	Twitter: @{{ site.twitter_user }}{% endif %}
 	From: {{ site.location }}
 
 /* THANKS */
