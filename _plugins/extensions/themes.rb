@@ -159,7 +159,6 @@ module Jekyll
       # filename.
       path = File.join(dest, dir, CGI.unescape(self.url))
       path = File.join(path, "index.html") if self.url =~ /\/$/
-      puts path
       path
     end
 
