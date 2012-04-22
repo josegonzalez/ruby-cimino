@@ -9,6 +9,7 @@ title:              Jekyll Blog
 author:             John Smith
 email:              mail@example.dev
 theme:              classic
+location:           'New York, New York'
 
 # ----------------------- #
 #         Layouts         #
