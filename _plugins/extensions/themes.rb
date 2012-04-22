@@ -37,11 +37,11 @@ module Jekyll
 
     # Set layouts in the following order:
     #
-    #  * ./_themes/default/_layouts
+    #  * ./_themes/classic/_layouts
     #  * ./source/_themes/THEME_NAME/_layouts
     #
     def read_layouts(dir = '')
-      recursive_read_layouts(File.join('..', '_themes', 'default', dir))
+      recursive_read_layouts(File.join('..', '_themes', 'classic', dir))
       recursive_read_layouts(File.join('_themes', self.config['theme'], dir)) if self.config.key?('theme')
     end
 
@@ -62,9 +62,14 @@ module Jekyll
     end
 
     def read_theme_directories(dir = '')
-      theme = nil
-      theme = File.join('_themes', self.config['theme']) if self.config.key?('theme')
-      read_directories(File.join(theme, dir), theme) if not theme.nil?
+      if self.config.key?('theme')
+        theme = File.join('_themes', self.config['theme'])
+        if File.exists?(File.join(self.source, theme))
+          read_directories(File.join(theme, dir), theme)
+        else
+          read_directories(File.join('..', '_themes', 'classic', dir), theme)
+        end
+      end
       read_directories(dir)
     end
 
@@ -86,7 +91,7 @@ module Jekyll
           first3 = File.open(f_abs) { |fd| fd.read(3) }
           if first3 == "---"
             # file appears to have a YAML header so process it as a page
-            pages << Page.new(self, self.source, dir, f)
+            pages << Page.new(self, self.source, dir, f, theme)
           else
             # otherwise treat it as a static file
             static_files << StaticFile.new(self, self.source, dir, f, theme)
@@ -114,11 +119,48 @@ module Jekyll
     end
 
     def destination(dest)
-      if @theme
-        File.join(dest, @dir, @name).gsub(File.join(dest, @theme), @site.dest)
-      else
-        File.join(dest, @dir, @name)
-      end
+      # The dir must be corrected when using themes
+      dir = @theme ? @dir.split(@theme).last[1..-1] : @dir
+      File.join(dest, dir, @name)
+    end
+
+  end
+
+  class Page
+    attr_accessor :theme
+
+    # Initialize a new Page.
+    #
+    # site - The Site object.
+    # base - The String path to the source.
+    # dir  - The String path between the source and the file.
+    # name - The String filename of the file.
+    def initialize(site, base, dir, name, theme)
+      @site = site
+      @base = base
+      @dir  = dir
+      @name = name
+      @theme = theme
+
+      self.process(name)
+      self.read_yaml(File.join(base, dir), name)
+    end
+
+    # Obtain destination path.
+    #
+    # dest - The String path to the destination dir.
+    #
+    # Returns the destination file path String.
+    def destination(dest)
+      # The dir must be corrected when using themes
+      dir = @theme ? @dir.split(@theme).last[1..-1] : @dir
+
+      # The url needs to be unescaped in order to preserve the correct
+      # filename.
+      path = File.join(dest, dir, CGI.unescape(self.url))
+      path = File.join(path, "index.html") if self.url =~ /\/$/
+      puts path
+      path
     end
 
   end
@@ -132,7 +174,7 @@ module Jekyll
     # Try includes in the following order:
     #
     # * source/_themes/THEME_NAME/_includes
-    # * _themes/default/_includes
+    # * _themes/classic/_includes
     #
     def render(context)
       if @file !~ /^[a-zA-Z0-9_\/\.-]+$/ || @file =~ /\.\// || @file =~ /\/\./
@@ -154,7 +196,7 @@ module Jekyll
     def find_path(context)
       site = context.registers[:site]
 
-      dirs = [ File.join('..', '_themes', 'default') ]
+      dirs = [ File.join('..', '_themes', 'classic') ]
       dirs.unshift(File.join('_themes', site.config['theme'])) if site.config.key?('theme')
 
       dirs.each do |dir|
