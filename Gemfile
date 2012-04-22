@@ -4,6 +4,10 @@ source "http://rubygems.org"
 gem "jekyll",   '~> 0.11'
 gem "gsl",      '~> 1.14'
 
+# Filter requirements
+gem "hpricot"
+gem "nokogiri"
+
 # Tag requirements
 gem "rmagick"
 gem "rubypants"
