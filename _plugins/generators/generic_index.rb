@@ -81,14 +81,14 @@ module Jekyll
         page_types = site.send ::Inflection.plural(page_type)
         next unless page_types
 
-        type = "generic/#{page_type}/index"
+        type = "generic_index/#{page_type}/index"
         if site.layouts.key?(type)
           page_types.keys.each do |page|
             write_index(site, File.join(config['dir'], page.gsub(/\s/, "-").gsub(/[^\w-]/, '').downcase), type, page, config)
           end
         end
 
-        type = "generic/#{page_type}/list"
+        type = "generic_index/#{page_type}/list"
         write_list(site, config['dir'], type, page_types.keys.sort, config) if site.layouts.key?(type)
       end
     end
