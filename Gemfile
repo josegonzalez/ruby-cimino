@@ -4,6 +4,13 @@ source "http://rubygems.org"
 gem "jekyll",   '~> 0.11'
 gem "gsl",      '~> 1.14'
 
+# Converter Requirements
+gem "redcarpet"
+gem "coffee-script"
+gem "haml"
+gem "sass"
+gem "stylus"
+
 # Filter requirements
 gem "hpricot"
 gem "nokogiri"
