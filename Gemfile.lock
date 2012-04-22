@@ -39,7 +39,7 @@ GEM
     posix-spawn (0.3.6)
     pygments.rb (0.2.12)
       rubypython (~> 0.5.3)
-    redcarpet (2.1.1)
+    redcarpet (1.17.2)
     rmagick (2.13.1)
     rubypants (0.2.0)
     rubypython (0.5.3)
@@ -67,7 +67,7 @@ DEPENDENCIES
   jekyll (~> 0.11)
   nokogiri
   pygments.rb
-  redcarpet
+  redcarpet (~> 1.17.2)
   rmagick
   rubypants
   sass

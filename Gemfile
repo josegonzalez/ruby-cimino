@@ -1,11 +1,11 @@
 source "http://rubygems.org"
 
 # Jekyll requirements
-gem "jekyll",   '~> 0.11'
-gem "gsl",      '~> 1.14'
+gem "jekyll",       '~> 0.11'
+gem "gsl",          '~> 1.14'
 
 # Converter Requirements
-gem "redcarpet"
+gem "redcarpet",    '~> 1.17.2'
 gem "coffee-script"
 gem "haml"
 gem "sass"
