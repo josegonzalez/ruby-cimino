@@ -144,7 +144,7 @@ end
 desc "Clean out caches: _tmp"
 task :clean do
   puts '* Removing Output'
-  rm_rf [ "_tmp/**", "_site/**" ]
+  puts `rm -rf _tmp/* _site/*`
 end
 
 ##############
