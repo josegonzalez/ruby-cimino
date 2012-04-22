@@ -1,3 +1,4 @@
+source/*
 _site/*
 _tmp/*
 !empty
