@@ -209,6 +209,13 @@ pre {
   -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.6);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.6);
 }
+td.code pre {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: pre;
+  word-wrap: normal;
+  width: 500px;
+}
 /* meta */
 /* HEADER
 --------------------------------------------------------------------------------- */
@@ -298,6 +305,7 @@ pre {
   margin-right: 0;
 }
 .unit-article ul, .unit-article ol, .unit-article dl {
+  margin-right: 2em;
   padding-left: 0;
 }
 .unit-article ul {

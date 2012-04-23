@@ -26,13 +26,11 @@ layout: default
 						</p>
 						<ul class="list-category list-linear">
 							<li class="list-head">category: </li>
-							{% assign categories_list = page.categories %}
-							<!-- {% include JB/categories_list %} -->
+							<li>{{ page.category }}</li>
 						</ul>
 						<ul class="list-tag list-linear">
 							<li class="list-head">tags: </li>
-							{% assign tags_list = page.tags %}
-							<!-- {% include JB/tags_list %} -->
+							{% for tag in page.tags %}<li>{{ tag }}</li>{% endfor %}
 						</ul>
 					</div><!-- meta -->
 				</div><!-- entry-content -->
