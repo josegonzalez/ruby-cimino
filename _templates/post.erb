@@ -1,0 +1,9 @@
+---
+  title:    <%= title %>
+  layout:   post
+  comments: <%= c['comments'].to_s %>
+  sharing:  <%= c['sharing'].to_s %>
+  date:     <%= Time.now.strftime('%Y-%m-%d %H:%M') %>
+  category: <%= c['category'] || '' %>
+  tags:
+---

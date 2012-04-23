@@ -85,6 +85,14 @@ deploy_path:        /var/www/example.dev/
 serve_port:         4000
 # Default editor to use when creating new posts
 editor:             subl
+# Enable sharing
+sharing:            true
+# Enable comments
+comments:           true
+# Default category for new posts
+category:           Code
+# Default format for new posts
+format:             markdown
 
 # ----------------------- #
 #         Plugins         #

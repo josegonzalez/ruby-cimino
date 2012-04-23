@@ -1,20 +1,22 @@
-require "rubygems"
-require "bundler"
-require "date"
-require "yaml"
+require 'rubygems'
+require 'bundler'
+require 'date'
+require 'yaml'
 
 # For tasks
-require "clipboard"
+require 'erb'
+require 'tilt'
+require 'clipboard'
 require 'em-dir-watcher'
 require 'net/http'
 require 'uri'
 require 'xmlrpc/client'
 
 # Get rake configuration
-config = YAML.load_file("source/_config.yml")
+c = YAML.load_file('source/_config.yml')
 
 # Ensure all directories exist
-[ "source", "_tmp", "_tmp/pygments_code", "_tmp/stash" ].each do |dir|
+[ 'source', '_tmp', '_tmp/pygments_code', '_tmp/stash' ].each do |dir|
   FileUtils.mkdir_p(File.expand_path('../' + dir, __FILE__))
 end
 
@@ -25,17 +27,17 @@ task :default => :dev
 #######################
 
 # TODO: Support SASS compiling through compass
-desc "Generate jekyll site"
+desc 'Generate jekyll site'
 task :generate do
-  puts "## Move the stashed blog posts back to the posts directory"
-  FileUtils.mv Dir.glob("_tmp/stash/*.*"), "_posts"
+  puts '## Move the stashed blog posts back to the posts directory'
+  FileUtils.mv Dir.glob('_tmp/stash/*.*'), '_posts'
 
-  puts "## Generating Site with Jekyll"
-  Dir.chdir('source') { system "jekyll" }
+  puts '## Generating Site with Jekyll'
+  Dir.chdir('source') { system 'jekyll' }
 end
 
 # TODO: Support SASS compiling through compass
-desc "Watch the site and regenerate when it changes"
+desc 'Watch the site and regenerate when it changes'
 task :watch do
   exclusions = ['_tmp', '_site', 'Gemfile']
 
@@ -45,27 +47,27 @@ task :watch do
         regenerate_site(relative)
       end
     end
-    puts ">>> Watching for Changes <<<"
+    puts '>>> Watching for Changes <<<'
   }
 end
 
 # TODO: Continuously regenerate the blog when performing a preview
-desc "Preview the site in a web browser"
+desc 'Preview the site in a web browser'
 multitask :preview => [:start_serve] do
-  system "open http://localhost:%s" %  [ config["serve_port"] ]
+  system "open http://localhost:#{c["serve_port"]}"
 end
 
-desc "start up an instance of serve on the output files"
+desc 'start up an instance of serve on the output files'
 task :start_serve => :stop_serve do
-  cd config["site"] do
-    print "Starting serve..."
-    ok_failed system("serve % > /dev/null 2>&1 &" [ config["serve_port"] ])
+  cd c['site'] do
+    print 'Starting serve...'
+    ok_failed system("serve #{c['serve_port']} > /dev/null 2>&1 &")
   end
 end
 
 desc "stop all instances of serve"
 task :stop_serve do
-  cmd = "ps auxw | awk '/bin\\/serve\\ %s/ { print $2 }'" % [ config["serve_port"] ]
+  cmd = "ps auxw | awk '/bin\\/serve\\ #{c["serve_port"]}/ { print $2 }'"
   pid = `#{cmd}`.strip
   if pid.empty?
     puts "Serve is not running"
@@ -76,8 +78,6 @@ task :stop_serve do
 end
 
 # TODO: Support configuration of post extension
-# TODO: Support error checking if the post already exists
-# TODO: Support a custom template for the initial post
 # TODO: Support initial categories and tags via a flag
 # TODO: Figure out a better way to hack the exit process of Rakefiles
 desc "Begin a new post in _posts"
@@ -88,15 +88,29 @@ task :new_post do
   end
 
   slug = "#{Date.today}-#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
-  file = File.join(File.dirname(__FILE__), config['source'], '_posts', slug + '.markdown')
-  create_blank_post(file, ARGV[1])
+  file = File.join(File.dirname(__FILE__), 'source', '_posts', "#{slug}.#{c['format']}")
 
-  if config["editor"]
-    system "#{config["editor"]} #{file}"
-    puts "Opening file in editor using %s" % [ config["editor"] ]
+  # Ensure that the file does not exists or the user wishes to overwrite it
+  if File.exists?(file)
+    exit(1) if !ask("Post #{file} already exists. Overwrite?")
+  end
+
+  # Create the Template
+  template_path = './_templates/post.erb'
+  template_path = './source/_templates/post.erb' if File.exists?('./source/_templates/post.erb')
+  template = Tilt.new(template_path)
+
+  # Create the post file
+  FileUtils.mkpath(File.dirname(file))
+  File.open(file, 'w') {|f| f.write(template.render(Object.new, :title => ARGV[1], :c => c)) }
+
+  # Post processing
+  if c["editor"]
+    puts "Opening file in editor using #{c['editor']}"
+    system "#{c["editor"]} #{file}"
   else
+    puts "Copying path to clipboard"
     Clipboard.copy file
-    puts "Copied path to clipboard"
   end
 
   exit(0)
@@ -157,7 +171,7 @@ end
 
 desc 'rsync the contents of ./_site to the server'
 task :rsync do
-  cmd = "rsync -avz '_site/' %s:%s" % [ config["ssh_user"], config["deploy_path"] ]
+  cmd = "rsync -avz '_site/' %s:%s" % [ c["ssh_user"], c["deploy_path"] ]
   puts '* Publishing files to live server'
   puts `#{cmd}`
 end
@@ -166,7 +180,7 @@ desc 'Notify Google of the new sitemap'
 task :sitemap do
   begin
     puts '* Pinging Google about our sitemap'
-    Net::HTTP.get('www.google.com', '/webmasters/tools/ping?sitemap=' + URI.escape("%s/sitemap.xml" % [ config["url"] ]))
+    Net::HTTP.get('www.google.com', '/webmasters/tools/ping?sitemap=' + URI.escape("%s/sitemap.xml" % [ c["url"] ]))
   rescue LoadError
     puts '! Could not ping Google about our sitemap, because Net::HTTP or URI could not be found.'
   end
@@ -176,7 +190,7 @@ desc 'Ping pingomatic'
 task :ping do
   begin
     puts '* Pinging ping-o-matic'
-    XMLRPC::Client.new('rpc.pingomatic.com', '/').call('weblogUpdates.extendedPing', 'Jose Diaz-Gonzalez' , config["url"], "%s/atom.xml" % [ config["url"] ])
+    XMLRPC::Client.new('rpc.pingomatic.com', '/').call('weblogUpdates.extendedPing', 'Jose Diaz-Gonzalez' , c["url"], "%s/atom.xml" % [ c["url"] ])
   rescue LoadError
     puts '! Could not ping ping-o-matic, because XMLRPC::Client could not be found.'
   end
@@ -229,30 +243,9 @@ def ok_failed(condition)
   puts condition ? "OK" : "FAILED"
 end
 
-# Helper method for :draft and :post, that required a TITLE environment
-# variable to be set. If there is none, the task will exit.
-#
-# If there is a title given, then this method will return it and a escaped
-# version suitable for filenames.
-
-# Helper method for :draft and :post, that will create a file at a given
-# location and fill it with an empty post.
-def create_blank_post(path, title)
-  # Create the directories to this path if needed
-  FileUtils.mkpath(File.dirname(path))
-
-  # Write the template to the file
-  File.open(path, "w") do |f|
-    f << <<-EOS.gsub(/^    /, '')
-    ---
-      title: #{title}
-      category: Code
-      tags:
-      layout: post
-    ---
-
-    EOS
-  end
+def ask(message)
+  print "#{message}\n[Y/n] "
+  STDIN.gets.strip.downcase[0] == 'y'
 end
 
 class Array
