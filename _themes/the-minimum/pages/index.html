@@ -1,0 +1,41 @@
+---
+layout: default
+title: Pages
+---
+<article class="unit-article layout-page">
+  <div class="unit-inner unit-article-inner">
+    <div class="content">
+      <header>
+        <div class="unit-head">
+          <div class="unit-inner unit-head-inner">
+            <h1 class="h2 entry-title">{{ page.title }}</h1>
+          </div><!-- unit-inner -->
+        </div><!-- unit-head -->
+      </header>
+
+      <div class="bd">
+        <div class="entry-content">
+          <ul>
+            {% for node in site.pages %}
+              {% if node.title != null %}
+                {% if group == null or group == node.group %}
+                  {% if node.url != page.url and node.url != '/index.html' and node.url != '/404.html' and node.url != '/archive/index.html' %}
+                  <li><a href="{{ node.url }}">{{ node.title }}</a></li>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div><!-- entry-content -->
+      </div><!-- bd -->
+
+      <footer class="unit-foot">
+        <div class="unit-inner unit-foot-inner">
+          <p class="gotop">
+            <a href="#page">Back to Top</a>
+          </p>
+        </div>
+      </footer>
+    </div><!-- content -->
+  </div><!-- unit-inner -->
+</article>
