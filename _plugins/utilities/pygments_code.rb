@@ -6,7 +6,7 @@ require 'pygments'
 require 'fileutils'
 require 'digest/md5'
 
-PYGMENTS_CACHE_DIR = File.expand_path('../../../_tmp/pygments_code', __FILE__)
+PYGMENTS_CACHE_DIR = File.dirname(__FILE__) + '/../../_tmp/pygments_code'
 FileUtils.mkdir_p(PYGMENTS_CACHE_DIR)
 
 module HighlightCode

@@ -41,8 +41,8 @@
 # <pre><code>&lt;sarcasm> Ooooh, sarcasm... How original!&lt;/sarcasm></code></pre>
 # </figure>
 #
-require './_plugins/utilities/pygments_code'
-require './_plugins/utilities/template_wrapper'
+require File.dirname(__FILE__) + '/../utilities/pygments_code'
+require File.dirname(__FILE__) + '/../utilities/template_wrapper'
 
 module Jekyll
 
