@@ -37,12 +37,19 @@ module Jekyll
 
     # Set layouts in the following order:
     #
-    #  * ./_themes/classic/_layouts
+    #  * ./_themes/THEME_NAME/_layouts
     #  * ./source/_themes/THEME_NAME/_layouts
     #
     def read_layouts(dir = '')
-      recursive_read_layouts(File.join('..', '_themes', 'classic', dir))
-      recursive_read_layouts(File.join('_themes', self.config['theme'], dir)) if self.config.key?('theme')
+      theme = 'classic'
+      theme = self.config['theme'] if self.config.key?('theme')
+
+      # Load theme from cimino base if possible
+      # Then override with source theme
+      [ '..', '' ].each do |base|
+        recursive_read_layouts(File.join(base, '_themes', theme, dir))
+      end
+
     end
 
     # Read all the files recursively in <source>/<dir>/_layouts
@@ -62,14 +69,11 @@ module Jekyll
     end
 
     def read_theme_directories(dir = '')
-      if self.config.key?('theme')
-        theme = File.join('_themes', self.config['theme'])
-        if File.exists?(File.join(self.source, theme))
-          read_directories(File.join(theme, dir), theme)
-        else
-          read_directories(File.join('..', '_themes', 'classic', dir), theme)
-        end
-      end
+      theme = 'classic'
+      theme = self.config['theme'] if self.config.key?('theme')
+      theme = File.join('_themes', theme)
+      theme = File.exists?(File.join(self.source, theme)) ? theme : File.join('..', theme)
+      read_directories(File.join(theme, dir), theme)
       read_directories(dir)
     end
 
@@ -173,7 +177,7 @@ module Jekyll
     # Try includes in the following order:
     #
     # * source/_themes/THEME_NAME/_includes
-    # * _themes/classic/_includes
+    # * _themes/THEME_NAME/_includes
     #
     def render(context)
       if @file !~ /^[a-zA-Z0-9_\/\.-]+$/ || @file =~ /\.\// || @file =~ /\/\./
@@ -195,11 +199,10 @@ module Jekyll
     def find_path(context)
       site = context.registers[:site]
 
-      dirs = [ File.join('..', '_themes', 'classic') ]
-      dirs.unshift(File.join('_themes', site.config['theme'])) if site.config.key?('theme')
-
-      dirs.each do |dir|
-        includes_dir = File.join(site.source, dir, '_includes')
+      theme = 'classic'
+      theme = site.config['theme'] if site.config.key?('theme')
+      [ '', '..' ].each do |dir|
+        includes_dir = File.join(site.source, dir, '_themes', theme, '_includes')
 
         next if File.symlink?(includes_dir)
 
