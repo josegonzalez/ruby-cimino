@@ -11,7 +11,7 @@ require 'uri'
 require 'xmlrpc/client'
 
 # Get rake configuration
-config = YAML.load_file("_config.yml")
+config = YAML.load_file("source/_config.yml")
 
 # Ensure all directories exist
 [ "source", "_tmp", "_tmp/pygments_code", "_tmp/stash" ].each do |dir|
@@ -31,7 +31,7 @@ task :generate do
   FileUtils.mv Dir.glob("_tmp/stash/*.*"), "_posts"
 
   puts "## Generating Site with Jekyll"
-  system "jekyll"
+  Dir.chdir('source') { system "jekyll" }
 end
 
 # TODO: Support SASS compiling through compass
@@ -125,7 +125,7 @@ task :isolate, :filename do |t, args|
   end
 
   puts '* Regenerating blog'
-  puts `jekyll`
+  Dir.chdir('source') { system "jekyll" }
 
   puts '* Moving posts from _tmp/stash/ directory to _posts/ directory'
 
@@ -185,7 +185,7 @@ end
 desc 'Run Jekyll in development mode'
 task :dev do
   puts '* Running Jekyll with auto-generation and server'
-  puts `jekyll --auto --server --lsi`
+  Dir.chdir('source') { system "jekyll --auto --server --lsi" }
 end
 
 desc 'Create and push a tag'
