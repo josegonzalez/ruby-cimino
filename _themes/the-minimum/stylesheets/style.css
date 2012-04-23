@@ -308,6 +308,9 @@ td.code pre {
   margin-left: 2em;
   padding-left: 0;
 }
+.unit-article ul.tag_box {
+  margin-left: 0;
+}
 .unit-article ul {
   list-style: square;
 }
