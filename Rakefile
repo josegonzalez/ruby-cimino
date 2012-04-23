@@ -37,6 +37,18 @@ task :generate do
 end
 
 # TODO: Support SASS compiling through compass
+desc 'Test generation of jekyll site'
+task :test do
+  puts '## Move the stashed blog posts back to the posts directory'
+  FileUtils.mv Dir.glob('_tmp/stash/*.*'), '_posts'
+
+  puts '## Generating Site with Jekyll'
+  Dir.chdir('source') { system "jekyll --no-lsi --url #{c['test_url']}" }
+end
+
+
+
+# TODO: Support SASS compiling through compass
 desc 'Watch the site and regenerate when it changes'
 task :watch do
   exclusions = ['_tmp', '_site', 'Gemfile']
@@ -208,13 +220,7 @@ end
 
 desc 'List all draft posts'
 task :drafts do
-  puts `find ./_posts -type f -exec grep -H 'published: false' {} \\;`
-end
-
-desc "list tasks"
-task :list do
-  puts "Tasks: #{Rake::Task.tasks.to_sentence}"
-  puts "(type rake -T for more detail)\n\n"
+  puts `find ./source/_posts -type f -exec grep -H 'published: false' {} \\;`
 end
 
 ##############
@@ -266,73 +272,4 @@ def create_file(c, file, template, title)
   end
 
   return true
-end
-
-class Array
-  # Converts the array to a comma-separated sentence where the last element is joined by the connector word. Options:
-  # * <tt>:words_connector</tt> - The sign or word used to join the elements in arrays with two or more elements (default: ", ")
-  # * <tt>:two_words_connector</tt> - The sign or word used to join the elements in arrays with two elements (default: " and ")
-  # * <tt>:last_word_connector</tt> - The sign or word used to join the last element in arrays with three or more elements (default: ", and ")
-  def to_sentence(options = {})
-    default_words_connector     = ", "
-    default_two_words_connector = " and "
-    default_last_word_connector = ", and "
-
-    options.assert_valid_keys(:words_connector, :two_words_connector, :last_word_connector, :locale)
-    options.reverse_merge! :words_connector => default_words_connector, :two_words_connector => default_two_words_connector, :last_word_connector => default_last_word_connector
-
-    case length
-      when 0
-        ""
-      when 1
-        self[0].to_s
-      when 2
-        "#{self[0]}#{options[:two_words_connector]}#{self[1]}"
-      else
-        "#{self[0...-1].join(options[:words_connector])}#{options[:last_word_connector]}#{self[-1]}"
-    end
-  end
-end
-
-class Hash
-  # Validate all keys in a hash match *valid keys, raising ArgumentError on a mismatch.
-  # Note that keys are NOT treated indifferently, meaning if you use strings for keys but assert symbols
-  # as keys, this will fail.
-  #
-  # ==== Examples
-  #   { :name => "Rob", :years => "28" }.assert_valid_keys(:name, :age) # => raises "ArgumentError: Unknown key(s): years"
-  #   { :name => "Rob", :age => "28" }.assert_valid_keys("name", "age") # => raises "ArgumentError: Unknown key(s): name, age"
-  #   { :name => "Rob", :age => "28" }.assert_valid_keys(:name, :age) # => passes, raises nothing
-  def assert_valid_keys(*valid_keys)
-    unknown_keys = keys - [valid_keys].flatten
-    raise(ArgumentError, "Unknown key(s): #{unknown_keys.join(", ")}") unless unknown_keys.empty?
-  end
-  # Allows for reverse merging two hashes where the keys in the calling hash take precedence over those
-  # in the <tt>other_hash</tt>. This is particularly useful for initializing an option hash with default values:
-  #
-  #   def setup(options = {})
-  #     options.reverse_merge! :size => 25, :velocity => 10
-  #   end
-  #
-  # Using <tt>merge</tt>, the above example would look as follows:
-  #
-  #   def setup(options = {})
-  #     { :size => 25, :velocity => 10 }.merge(options)
-  #   end
-  #
-  # The default <tt>:size</tt> and <tt>:velocity</tt> are only set if the +options+ hash passed in doesn't already
-  # have the respective key.
-  def reverse_merge(other_hash)
-    other_hash.merge(self)
-  end
-  # Performs the opposite of <tt>merge</tt>, with the keys and values from the first hash taking precedence over the second.
-  # Modifies the receiver in place.
-  def reverse_merge!(other_hash)
-    merge!( other_hash ){|k,o,n| o }
-  end
-end
-
-class String
-  alias_method :starts_with?, :start_with?
-  alias_method :ends_with?, :end_with?
 end
