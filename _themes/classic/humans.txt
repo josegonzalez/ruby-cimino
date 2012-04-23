@@ -18,7 +18,6 @@ layout: nil
 
 /* SITE */
 
-
-Last update: {{ site.time | date: "%Y/%m/%d" }}
-Standards: HTML5
-Software: Jekyll, Cimino
+	Last update: {{ site.time | date: "%Y/%m/%d" }}
+	Standards: HTML5
+	Software: Jekyll, Cimino
