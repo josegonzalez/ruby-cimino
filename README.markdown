@@ -100,11 +100,10 @@ For the time being, these converters do **NOT** work on anything in `_layouts`. 
 
 ### Extensions
 
-- `iterator`: allows you to iterate over all tags/categories and then iterate over the posts in those tags/categories. You can use this to automatically generate a tag cloud and a category page listing. <em>e.g. [Tag Cloud on Sidebar](http://josediazgonzalez.com/categories/cakephp)</em>
+- `iterator`: Add an iterator for posts into the categories and tags properties of the `site` object. You can use this to automatically generate a tag cloud and a category page listing. <em>e.g. [Tag Cloud on Sidebar](http://josediazgonzalez.com/categories/cakephp)</em>
 - `liquid_exception_handler`: When creating there is a liquid exception, this will suppress the exception during jekyll's generation step. DANGEROUS
-- `recursive_layouts`: Gives Jekyll the ability to support layouts inside of `_layouts` subdirectories. Required for generator plugins
-- `post_filter`: Allows adding a `pre` and `post` filter step to post contents
-- `themes`: Themes. For Jekyll.
+- `post_filter`: Allows filtering of Post methods, AOSP style
+- `themes`: Add theme support to Jekyll
 
 ### Filters
 
@@ -126,9 +125,9 @@ For the time being, these converters do **NOT** work on anything in `_layouts`. 
 
 ### Tags
 
-- `backtick`:
-- `highlight`:
-- `image`:
+- `backtick`: Allow placing codeblocks within three ```, github-style
+- `highlight`: Write highlights with semantic HTML5 <figure> and <figcaption> elements and optional syntax highlighting — all with a simple, intuitive interface.
+- `image`: Allows embedding images in your posts, pre-processed by rmagick
 - `quote`: Allows the usage of blockquotes with attribution within your application by doing:
 
         {% blockquote John Hancock %}
@@ -139,14 +138,14 @@ Also adds support for pullquotes:
         {% pullquote John Hancock %}
         Content
         {% endpullquote %}
-- `rainbow`
-- `raw`
-- `render_time`
+- `rainbow`: Wraps codeblocks in `rainbow` compliant html tags
+- `raw`: Raw tag for jekyll. Keeps liquid from parsing text betweeen {% raw %} and {% endraw %}
+- `render_time`: Sample `render_time` tag
 
 ### Utilities
 
-- `pygments_code`:
-- `template_wrapper`:
+- `pygments_code`: Remove need for built-in Pygments syntax highlighting in favor of Pygments gem
+- `template_wrapper`: This is useful for preventing Markdown and Textile from being too aggressive and incorrectly parsing in-line HTML.
 
 # Todo
 
