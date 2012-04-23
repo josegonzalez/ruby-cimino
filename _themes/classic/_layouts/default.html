@@ -5,7 +5,11 @@
   <title>{{ page.title }}</title>
   <meta name="author" content="{{ site.author }}" />
   <link rel="author" href="{{ site.url }}{{ site.baseurl }}humans.txt" />
-  <link href="{{ site.url }}{{ site.baseurl }}atom.xml" rel="alternate" title="{{ site.title }}" type="application/atom+xml" />
+  {% if site.feedburner_name %}
+    <link href="http://feeds.feedburner.com/{{ site.feedburner_name }}" rel="alternate" title="{{ page.title }}" type="application/atom+xml">
+  {% else %}
+    <link href="{{ site.url }}{{ site.baseurl }}atom.xml" rel="alternate" title="{{ site.title }}" type="application/atom+xml" />
+  {% endif %}
 
   <!-- syntax highlighting CSS -->
   <link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}css/syntax.css" type="text/css" />
@@ -54,9 +58,15 @@
         </p>
       </div>
       <div class="rss">
-        <a href="{{ site.url }}{{ site.baseurl }}/atom.xml">
-          <img src="/images/rss.png" alt="Subscribe to RSS Feed" />
-        </a>
+        {% if site.feedburner_name %}
+          <a href="http://feeds.feedburner.com/{{ site.feedburner_name }}">
+            <img src="/images/rss.png" alt="Subscribe to RSS Feed" />
+          </a>
+        {% else %}
+          <a href="{{ site.url }}{{ site.baseurl }}/atom.xml">
+            <img src="/images/rss.png" alt="Subscribe to RSS Feed" />
+          </a>
+        {% endif %}
       </div>
     </div>
   </div>
