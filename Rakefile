@@ -77,49 +77,33 @@ task :stop_serve do
   end
 end
 
-# TODO: Support configuration of post extension
-# TODO: Support initial categories and tags via a flag
 # TODO: Figure out a better way to hack the exit process of Rakefiles
 desc "Begin a new post in _posts"
 task :new_post do
   unless ARGV.length > 1
-    puts "USAGE: rake post 'the post title'"
+    puts "USAGE: rake new_post 'the post title'"
     exit(1)
   end
 
   slug = "#{Date.today}-#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
   file = File.join(File.dirname(__FILE__), 'source', '_posts', "#{slug}.#{c['format']}")
 
-  # Ensure that the file does not exists or the user wishes to overwrite it
-  if File.exists?(file)
-    exit(1) if !ask("Post #{file} already exists. Overwrite?")
-  end
-
-  # Create the Template
-  template_path = './_templates/post.erb'
-  template_path = './source/_templates/post.erb' if File.exists?('./source/_templates/post.erb')
-  template = Tilt.new(template_path)
-
-  # Create the post file
-  FileUtils.mkpath(File.dirname(file))
-  File.open(file, 'w') {|f| f.write(template.render(Object.new, :title => ARGV[1], :c => c)) }
-
-  # Post processing
-  if c["editor"]
-    puts "Opening file in editor using #{c['editor']}"
-    system "#{c["editor"]} #{file}"
-  else
-    puts "Copying path to clipboard"
-    Clipboard.copy file
-  end
-
-  exit(0)
+  created = create_file(c, file, 'post', ARGV[1])
+  exit(created ? 0 : 1)
 end
 
-# TODO: Implement :new_page
-desc "Create a new page in /(filename)/index.markdown"
+desc "Create a new page in (filename)/index.#{c['format']}"
 task :new_page do
-    raise "### UNIMPLEMENTED"
+  unless ARGV.length > 1
+    puts "USAGE: rake new_page 'the post title'"
+    exit(1)
+  end
+
+  slug = "#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
+  file = File.join(File.dirname(__FILE__), 'source', slug, "index.#{c['format']}")
+
+  created = create_file(c, file, 'page', ARGV[1])
+  exit(created ? 0 : 1)
 end
 
 # TODO: Add a flag to disable plugin compilation
@@ -246,6 +230,38 @@ end
 def ask(message)
   print "#{message}\n[Y/n] "
   STDIN.gets.strip.downcase[0] == 'y'
+end
+
+def create_file(c, file, template, title)
+  if File.exists?(file) && !ask("#{file} already exists. Overwrite?")
+    puts "Aborting creation of #{file}"
+    return false
+  end
+
+  # Create the Template
+  template_path = "./source/_templates/#{template}.erb"
+  template_path = "./_templates/#{template}.erb" if !File.exists?(template_path)
+  if !File.exists?(template_path)
+    puts "Template '#{template}' does not exist!"
+    return false
+  end
+
+  template = Tilt.new(template_path)
+
+  # Create the post file
+  FileUtils.mkpath(File.dirname(file))
+  File.open(file, 'w') {|f| f.write(template.render(Object.new, :title => title, :c => c)) }
+
+  # Post processing
+  if c["editor"]
+    puts "Opening file in editor using #{c['editor']}"
+    system "#{c["editor"]} #{file}"
+  else
+    puts "Copying path to clipboard"
+    Clipboard.copy file
+  end
+
+  return true
 end
 
 class Array
