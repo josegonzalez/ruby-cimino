@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Cimino : Jekyll blogging at it's finest. No really, even finer than Octopress" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Cimino</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/josegonzalez/cimino">Fork Me on GitHub</a>
+
+          <h1 id="project_title">Cimino</h1>
+          <h2 id="project_tagline">Jekyll blogging at it's finest. No really, even finer than Octopress</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/josegonzalez/cimino/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/josegonzalez/cimino/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Cimino: Jekyll Blogging Like a Boss</h1>
+
+<p>Cimino is a powerful, Jekyll-based distribution full of burrito-eating and badassery. It combines some of the most useful plugins and contributions from the Jekyll community with some ridiculous ninja-hacks to turn Jekyll into an easy to use and easy to extend blogging platform. Because we all love platforms.</p>
+
+<p>Still pretty experimental. If something in this readme doesn't work as promised, oops?</p>
+
+<h1>Requirements</h1>
+
+<ul>
+<li>Ruby 1.9.2. If it works in 1.8.7 or 1.9.3, thats cool.</li>
+<li>Python 2.7 for syntax highlighting via Pygments. We're working on it!</li>
+<li>Patience</li>
+</ul><h1>Installation</h1>
+
+<h2>Pre-installation</h2>
+
+<ul>
+<li>Install Ruby 1.9.2 via your favorite installation method. Included are <code>.rbenv-version</code> and <code>.rvmrc</code> files which may help speed up switching between Ruby versions.</li>
+<li>Install Python 2.7. This comes default on Ubuntu 11.10, and is easily installable on OS X. You'll also want pip to install Python requirements.</li>
+</ul><h2>Cimino Installation</h2>
+
+<pre><code># Clone cimino into a working area
+cd path/to/your/working/area
+git clone git://github.com/josegonzalez/cimino.git
+
+# Install all of cimino's requirements
+cd cimino
+pip install -r requirements.txt
+bundle install
+
+# Set cimino up the bomb
+rake setup
+</code></pre>
+
+<h1>Usage</h1>
+
+<p>Whenever you run <code>rake setup</code> from the <code>cimino</code> directory, the rake task will attempt to do the following:</p>
+
+<ul>
+<li>Setup all temporary directories</li>
+<li>Create your source directory with the apropriate directories</li>
+<li>Ask you for some configuration information</li>
+<li>Setup a custom <code>_config.yml</code> in your source directory</li>
+<li>Cache your configuration information for upgrades</li>
+</ul><p>Cimino includes a <code>.gitignore</code> file which ignores any created directories, such as <code>_site</code>, <code>_tmp</code>, and <code>source</code>. This means you can make your <code>source</code> directory a git repository by doing the following:</p>
+
+<pre><code>cd path/to/your/cimino_install
+cd source
+git init
+git add .
+git commit -m "Initial commit"
+</code></pre>
+
+<p>Updating Cimino is quite simple. Simply issue a <code>git pull origin master</code> in your Cimino installation directory and run <code>rake update</code>. This will ensure your <code>_config.yml</code> file is up to date. It will also warn you that your Cimino theme is out of date if you happened to override a core theme in your <code>source</code> directory.</p>
+
+<h2>Themes</h2>
+
+<p>Themes are central to how Cimino works. Cimino hates not being able to customize his blog, so he has the ability to switch between various themes at will. Not only does Cimino come with a few core themes out of the box, but it is also possible to include your own themes within your <code>source</code> directory.</p>
+
+<p>Theming is simple. Normally you have <code>_includes</code> and <code>_layouts</code> directories and a slew of other template files in your <code>source</code> directory. This gets a bit messy when updating your blog, so Cimino has the ability to move all these files into a custom theme folder that lives in <code>_themes</code>. You'll notice that Cimino himself comes with a few themes, each of which can choose to implement or not various features. Most themes are interchangeable, but you may have a specific need for your own blog, so feel free to throw away what is unnecessary.</p>
+
+<p>When customizing your Cimino installation, feel free to either create a new theme in <code>source/_themes</code>, or copy an existing theme from <code>_themes</code> to <code>source/_themes</code>. In doing so, you allow Cimino to be cleanly updated at a later date without merge conflicts or silly, potentially error-prone file movements.</p>
+
+<p>Themes typically have the following folders and files:</p>
+
+<pre><code>`-- source/
+    `-- _themes/
+        `-- theme_name/
+            |-- _includes/
+            |-- _layouts/
+            |   |-- default.html
+            |   |-- page.html
+            |   `-- post.html
+            |-- css/
+            |-- images/
+            |-- js/
+            |-- 404.html
+            |-- favicon.ico
+            |-- humans.txt
+            |-- robots.txt
+            `-- sitemap.xml
+</code></pre>
+
+<p>You can copy many of these files from the <code>classic</code> theme, or you can choose to omit them. If you are extending an existing theme, Cimino is smart enough to try and get the themefile from it's Core whenever you omit it. Simply name your theme the same as one in the core and Cimino will do the rest.</p>
+
+<p>You're also allowed to implement as many of the custom plugin layouts as necessary, or add any other theme-specific pages. Feel free to explore themes included with Cimino if you are confused as to what goes and what does not go in a theme.</p>
+
+<h2>Plugins</h2>
+
+<p>Because Cimino LOVES to mess around with cool stuff, he includes many useful plugins and Jekyll extensions. If you find something super #dagital you want Cimino to know about, feel free to issue a pull request with the plugin in hand.</p>
+
+<p>All included plugins have been attributed to their original creators where possible. If you feel slighted in any way and would like your work removed, feel free to let me know and we'll split half of all the money Cimino makes off of your hard work ;)</p>
+
+<h3>Converters</h3>
+
+<p>For the time being, these converters do <strong>NOT</strong> work on anything in <code>_layouts</code>. This is a limitation in Jekyll which I hope to <del>hack</del> fix.</p>
+
+<ul>
+<li>
+<code>coffee</code>: Converts <code>.coffee</code> files to <code>.js</code>
+</li>
+<li>
+<code>haml</code>: Converts <code>.haml</code> files to <code>.html</code>
+</li>
+<li>
+<code>sass</code>: Converts <code>.sass</code> and <code>.scss</code> files to <code>.css</code>
+</li>
+<li>
+<code>styl</code>: Converts <code>.styl</code> files to <code>.css</code>
+</li>
+<li>
+<code>upcase</code>: Converts <code>.upcase</code> files to uppercase</li>
+</ul><h3>Extensions</h3>
+
+<ul>
+<li>
+<code>iterator</code>: allows you to iterate over all tags/categories and then iterate over the posts in those tags/categories. You can use this to automatically generate a tag cloud and a category page listing. <em>e.g. <a href="http://josediazgonzalez.com/categories/cakephp">Tag Cloud on Sidebar</a></em>
+</li>
+<li>
+<code>liquid_exception_handler</code>: When creating there is a liquid exception, this will suppress the exception during jekyll's generation step. DANGEROUS</li>
+<li>
+<code>recursive_layouts</code>: Gives Jekyll the ability to support layouts inside of <code>_layouts</code> subdirectories. Required for generator plugins</li>
+<li>
+<code>post_filter</code>: Allows adding a <code>pre</code> and <code>post</code> filter step to post contents</li>
+<li>
+<code>themes</code>: Themes. For Jekyll.</li>
+</ul><h3>Filters</h3>
+
+<ul>
+<li>
+<code>extended_filters</code>
+
+<ul>
+<li><code>date_to_month</code></li>
+<li><code>date_to_month_abbr</code></li>
+<li><code>date_to_utc</code></li>
+<li><code>html_truncatewords</code></li>
+<li><code>preview</code></li>
+<li><code>markdownify</code></li>
+</ul>
+</li>
+</ul><h3>Generators</h3>
+
+<ul>
+<li>
+<code>archive</code>: creates archive pages by <code>year</code>, <code>year/month</code>, and <code>year/month/day</code>. Automatically generate archive pages for dates like 2010/, 2010/01/, and 2010/01/12 using files in <em>_layouts</em> to specify what each page will look like. <em>e.g. Posts for <a href="http://josediazgonzalez.com/2010/01">January 2010</a></em>
+</li>
+<li>
+<code>atom</code>: creates an <code>atom.xml</code> feed</li>
+<li>
+<code>generic_index</code>: creates generic index pages, like <code>tag</code> and <code>category</code> pages. Automatically generate index pages for each of the site.config <code>index_pages</code>. Currently iterates over collections already in the site, meaning all you need to do to have index pages for tags and categories is add them to the <code>index_pages</code> <code>site.config</code> key. Creates specific collection pages from layouts in <em>_layouts</em> to specify what each page will look like. <em>e.g. <a href="http://josediazgonzalez.com/categories/cakephp">CakePHP</a></em>. Also creates a listing of all of a particular collection. <em>e.g. <a href="http://josediazgonzalez.com/categories">Categories</a></em>. If the yaml maps to a boolean <code>true</code>, related collection items will appear in <code>page.related</code>
+</li>
+<li>
+<code>post_type</code>: Allows you to create generic post type landing pages and sub-pages, like <code>portfolios</code> or <code>galleries</code>. Allows the creation of a series of posts based on a type. Useful if you want to create a portfolio or gallery from an <code>_post_types/gallery</code> or <code>_post_types/portfolio</code> directory.</li>
+<li>
+<code>sitemap</code>: creates a <code>sitemap.xml</code> file</li>
+</ul><h3>Tags</h3>
+
+<ul>
+<li>
+<code>backtick</code>:</li>
+<li>
+<code>highlight</code>:</li>
+<li>
+<code>image</code>:</li>
+<li>
+<p><code>quote</code>: Allows the usage of blockquotes with attribution within your application by doing:</p>
+
+<pre><code>{% blockquote John Hancock %}
+Content
+{% endblockquote %}
+</code></pre>
+
+<p>Also adds support for pullquotes:</p>
+
+<pre><code>{% pullquote John Hancock %}
+Content
+{% endpullquote %}
+</code></pre>
+</li>
+<li><p><code>rainbow</code></p></li>
+<li><p><code>raw</code></p></li>
+<li><p><code>render_time</code></p></li>
+</ul><h3>Utilities</h3>
+
+<ul>
+<li>
+<code>pygments_code</code>:</li>
+<li>
+<code>template_wrapper</code>:</li>
+</ul><h1>Todo</h1>
+
+<ul>
+<li>Include plugins within themes</li>
+<li>More themes</li>
+<li>Add the ability to comment and share posts/pages</li>
+<li>Cleanup plugin documentation</li>
+<li>Tests for plugins</li>
+<li>Add template for <code>_config.yml</code>
+</li>
+<li>Split up Rakefile into separate tasks</li>
+<li>Thor support</li>
+<li>Include common deployment scenarios - Github, Heroku, Amazon, Rsync</li>
+<li>Steal more stuff from Octopress and other distributions</li>
+<li>Sleep</li>
+<li>Unknown bug fixes</li>
+</ul><h1>License</h1>
+
+<p>License valid for all new code, design/html that isn't directly attributable to a known source, hacks on hacks, and things generally written by me. Serp-a-derp, please don't sue me.</p>
+
+<h2>MIT</h2>
+
+<p>Copyright (c) 2012 Jose Diaz-Gonzalez</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Cimino maintained by <a href="https://github.com/josegonzalez">josegonzalez</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
