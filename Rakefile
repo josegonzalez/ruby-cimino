@@ -85,6 +85,8 @@ task :new_post do
     exit(1)
   end
 
+  [ 'category', 'comments', 'sharing'].each { |k| c[k] = ENV[k] if ENV.key?(k) }
+
   slug = "#{Date.today}-#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
   file = File.join(File.dirname(__FILE__), 'source', '_posts', "#{slug}.#{c['format']}")
 
@@ -98,6 +100,8 @@ task :new_page do
     puts "USAGE: rake new_page 'the post title'"
     exit(1)
   end
+
+  [ 'comments', 'sharing'].each { |k| c[k] = ENV[k] if ENV.key?(k) }
 
   slug = "#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
   file = File.join(File.dirname(__FILE__), 'source', slug, "index.#{c['format']}")
