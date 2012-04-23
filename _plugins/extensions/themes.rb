@@ -166,6 +166,16 @@ module Jekyll
       path
     end
 
+    def to_liquid
+      # The dir must be corrected when using themes
+      dir = @theme ? @dir.split(@theme).last[1..-1] : @dir
+      dir = "/#{dir}" if !dir.start_with?('/')
+
+      self.data.deep_merge({
+        "url"        => File.join(dir, self.url),
+        "content"    => self.content })
+    end
+
   end
 
   class ThemeIncludeTag < Liquid::Tag
