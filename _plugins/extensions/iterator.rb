@@ -3,6 +3,7 @@
 # Description: Add an iterator for posts into the categories and tags
 
 module Jekyll
+
   class Site
     alias_method :orig_site_payload, :site_payload
 
@@ -44,4 +45,5 @@ module Jekyll
     end
 
   end
+
 end

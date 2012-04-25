@@ -7,6 +7,7 @@ require 'inflection'
 require 'stringex'
 
 module Jekyll
+
   class PostTypeIndex < Page
     def initialize(site, base, dir, type, post_path, config)
       slug = post_path.chomp(File.extname(post_path)).to_url
@@ -24,17 +25,17 @@ module Jekyll
       self.data['slug'] = slug
       self.data['is_' + config['post_type']] = true
 
-      if self.data.has_key?('date')
+      if self.data.key?('date')
         # ensure Time via to_s and reparse
         self.date = Time.parse(self.data["date"].to_s)
       end
 
-      if !self.data.has_key?('layout')
+      if !self.data.key?('layout')
         self.data['layout'] = type
       end
 
       # Ignore the post_type page unless it has been marked as published.
-      if self.data.has_key?('published') && self.data['published'] == false
+      if self.data.key?('published') && self.data['published'] == false
         return false
       else
         self.data['published'] = true
@@ -73,26 +74,37 @@ module Jekyll
     safe true
     priority :low
 
-    def generate(site)
-      return if !site.config.has_key?('post_type') || site.config['post_type'].nil?
+    def initialize(config)
+      super
+      return @enabled = false if @plugin_config.empty?
 
-      site.config['post_type'].each do |post_type|
-        config = {}
+      config = {}
+      @plugin_config.each do |post_type|
+        c = {}
         if post_type.is_a?(Hash)
-          post_type, config['page_dir'] = post_type.shift
+          post_type, c['dir'] = post_type.shift
         elsif post_type.is_a?(Array)
-          post_type, config = post_type
+          post_type, c = post_type
         end
 
-        config = {} if config.nil?
-
-        config = config.merge!({
+        c ||= {}
+        c = c.merge!({
           'page_title'  => post_type.capitalize + ': ',
           'folder'      => "_post_types/#{post_type}",
           'post_type'   => post_type,
           'dir'         => post_type,
         }){ |key, v1, v2| v1 }
 
+        config[post_type] =  c
+      end
+
+      @plugin_config = config
+    end
+
+    def generate(site)
+      return if !@enabled
+
+      @plugin_config.each do |post_type, config|
         post_type_list = []
 
         type = "post_type/#{post_type}/index"
@@ -147,4 +159,5 @@ module Jekyll
       end
     end
   end
+
 end

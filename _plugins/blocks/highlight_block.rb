@@ -46,8 +46,8 @@ require File.dirname(__FILE__) + '/../utilities/template_wrapper'
 
 module Jekyll
 
-  class CodeBlock < Liquid::Block
-    include HighlightCode
+  class EnhancedHighlightBlock < Liquid::Block
+    include PygmentsCode
     include TemplateWrapper
     CaptionUrlTitle = /(\S[\S\s]*)\s+(https?:\/\/)(\S+)\s+(.+)/i
     CaptionUrl = /(\S[\S\s]*)\s+(https?:\/\/)(\S+)/i
@@ -87,11 +87,19 @@ module Jekyll
         source += "#{tableize_code(output.lstrip.rstrip.gsub(/</,'&lt;'))}</figure>"
       end
       source = safe_wrap(source)
-      source = context['pygments_prefix'] + source if context['pygments_prefix']
-      source = source + context['pygments_suffix'] if context['pygments_suffix']
+      source = @plugin_config['prefix'] + source if @plugin_config['prefix']
+      source = source + @plugin_config['suffix'] if @plugin_config['suffix']
       source
     end
   end
+
 end
 
-Liquid::Template.register_tag('highlight', Jekyll::CodeBlock)
+config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))
+if !config.key?("disabled_blocks")
+  Liquid::Template.register_tag('highlight', Jekyll::EnhancedHighlightBlock)
+else
+  disabled = config["disabled_blocks"]
+  disabled = [disabled] if disabled.is_a?('String')
+  Liquid::Template.register_tag('highlight', Jekyll::EnhancedHighlightBlock) unless disabled.member?('highlight')
+end

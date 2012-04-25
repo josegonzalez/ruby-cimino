@@ -9,7 +9,8 @@ require 'digest/md5'
 PYGMENTS_CACHE_DIR = File.dirname(__FILE__) + '/../../_tmp/pygments_code'
 FileUtils.mkdir_p(PYGMENTS_CACHE_DIR)
 
-module HighlightCode
+module PygmentsCode
+
   def highlight(str, lang)
     lang = 'ruby' if lang == 'ru'
     lang = 'objc' if lang == 'm'
@@ -33,6 +34,7 @@ module HighlightCode
     end
     highlighted_code
   end
+
   def tableize_code (str, lang = '')
     table = '<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers">'
     code = ''
@@ -42,4 +44,5 @@ module HighlightCode
     end
     table += "</pre></td><td class='code'><pre><code class='#{lang}'>#{code}</code></pre></td></tr></table></div>"
   end
+
 end

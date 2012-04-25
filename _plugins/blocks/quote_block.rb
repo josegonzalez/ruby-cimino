@@ -16,7 +16,7 @@ module Jekyll
   #     <strong>John Paul Jones</strong>
   #   </blockquote>
   #
-  class Blockquote < Liquid::Block
+  class BlockquoteBlock < Liquid::Block
     TitledCitation = /(\S.*)\s+(https?:\/\/)(\S+)\s+(.+)/i
     Citation = /(\S.*)\s+(https?:\/\/)(\S+)/i
     Author = /([\w\s]+)/
@@ -72,13 +72,22 @@ module Jekyll
   #     <strong>John Paul Jones</strong>
   #   </blockquote>
   #
-  class Pullquote < Blockquote
+  class PullquoteBlock < BlockquoteBlock
     def render(context)
       @class = ' class="pullquote"'
       super(context)
     end
   end
+
 end
 
-Liquid::Template.register_tag('blockquote', Jekyll::Blockquote)
-Liquid::Template.register_tag('pullquote', Jekyll::Pullquote)
+config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))
+if !config.key?("disabled_blocks")
+  Liquid::Template.register_tag('blockquote', Jekyll::BlockquoteBlock)
+  Liquid::Template.register_tag('pullquote', Jekyll::PullquoteBlock)
+else
+  disabled = config["disabled_blocks"]
+  disabled = [disabled] if disabled.is_a?('String')
+  Liquid::Template.register_tag('blockquote', Jekyll::BlockquoteBlock) unless disabled.member?('blockquote')
+  Liquid::Template.register_tag('pullquote', Jekyll::PullquoteBlock) unless disabled.member?('pullquote')
+end

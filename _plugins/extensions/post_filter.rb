@@ -11,7 +11,6 @@ module Jekyll
   # https://github.com/tedkulp/octopress/blob/master/plugins/post_metaweblog.rb
   # https://github.com/tedkulp/octopress/blob/master/plugins/post_twitter.rb
   class PostFilter < Plugin
-
     #Called before post is sent to the converter. Allows
     #you to modify the post object before the converter
     #does it's thing
@@ -177,4 +176,5 @@ module Jekyll
       self.site.config['url'] + self.url
     end
   end
+
 end

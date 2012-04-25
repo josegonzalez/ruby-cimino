@@ -10,11 +10,10 @@ module Jekyll
   ATTRIBUTES = %w(max_width max_height)
 
   class ImageTag < Liquid::Tag
-
     def initialize(tag_name, markup, tokens)
       super
 
-      args = markup.strip.split /\s+/
+      args = markup.strip.split(/\s+/)
       file = args.shift
       if file =~ /^\/+(.*)/
         # Absolute image path; remove leading slashes
@@ -45,8 +44,8 @@ module Jekyll
 
       image = Magick::ImageList.new(path).first
 
-      max_width = @max_width || site.config['image_max_width']
-      max_height = @max_height || site.config['image_max_height']
+      max_width = @max_width || @plugin_config['max_width']
+      max_height = @max_height || @plugin_config['max_height']
 
       original_width, original_height = image.columns, image.rows
       width, height = original_width, original_height
@@ -64,9 +63,9 @@ module Jekyll
         src_name = '/' + @file
       end
 
-      if site.config.has_key?('image_include')
+      if @plugin_config.key?('include')
         # TODO: Secure this. Do not allow reading files outside _includes
-        source = File.read(File.join(context.registers[:site].source, '_images', site.config['image_include']))
+        source = File.read(File.join(context.registers[:site].source, '_images', @plugin_config['include']))
         partial = Liquid::Template.parse(source)
         context.stack do
           context['image'] = {
@@ -85,4 +84,11 @@ module Jekyll
 
 end
 
-Liquid::Template.register_tag('image', Jekyll::ImageTag)
+config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))
+if !config.key?("disabled_tags")
+  Liquid::Template.register_tag('image', Jekyll::ImageTag)
+else
+  disabled = config["disabled_tags"]
+  disabled = [disabled] if disabled.is_a?('String')
+  Liquid::Template.register_tag('image', Jekyll::ImageTag) unless disabled.member?('rainbow')
+end

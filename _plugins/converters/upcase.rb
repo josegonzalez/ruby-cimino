@@ -3,12 +3,13 @@
 # Description: Uppercase ALL the things
 
 module Jekyll
+
   class UpcaseConverter < Converter
     safe true
     priority :low
 
     def matches(ext)
-      ext =~ /upcase/i
+      @enabled ? ext =~ /upcase/i : false
     end
 
     def output_ext(ext)
@@ -19,4 +20,5 @@ module Jekyll
       content.upcase
     end
   end
+
 end

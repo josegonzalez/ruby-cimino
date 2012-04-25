@@ -3,7 +3,8 @@
 # Description: Raw tag for jekyll. Keeps liquid from parsing text betweeen {% raw %} and {% endraw %}
 
 module Jekyll
-  class RawTag < Liquid::Block
+
+  class RawBlock < Liquid::Block
     def parse(tokens)
       @nodelist ||= []
       @nodelist.clear
@@ -19,6 +20,14 @@ module Jekyll
       end
     end
   end
+
 end
 
-Liquid::Template.register_tag('raw', Jekyll::RawTag)
+config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))
+if !config.key?("disabled_tags")
+  Liquid::Template.register_tag('raw', Jekyll::RawBlock)
+else
+  disabled = config["disabled_tags"]
+  disabled = [disabled] if disabled.is_a?('String')
+  Liquid::Template.register_tag('raw', Jekyll::RawBlock) unless disabled.member?('raw')
+end

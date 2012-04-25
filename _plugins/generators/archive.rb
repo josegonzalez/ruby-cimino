@@ -3,6 +3,7 @@
 # Description: Creates archive pages
 
 module Jekyll
+
   class ArchiveIndex < Page
     def initialize(site, base, dir, type)
       @site = site
@@ -40,11 +41,14 @@ module Jekyll
   end
 
   class ArchiveGenerator < Generator
-    safe true
+
     attr_accessor :collated_posts
 
+    safe true
 
     def generate(site)
+      return if !@enabled
+
       self.collated_posts = {}
       collate(site)
 
@@ -77,4 +81,5 @@ module Jekyll
       end
     end
   end
+
 end

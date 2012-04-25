@@ -4,6 +4,7 @@
 require 'pathname'
 
 module Jekyll
+
   class AtomIndex < Page
     def initialize(site, base, dir, type)
       @site = site
@@ -24,6 +25,8 @@ module Jekyll
     priority :low
 
     def generate(site)
+      return if !@enabled
+
       site_folder = site.config['destination']
       Pathname.new(site_folder).mkdir unless File.directory?(site_folder)
 
@@ -37,4 +40,5 @@ module Jekyll
       site.static_files << atom
     end
   end
+
 end

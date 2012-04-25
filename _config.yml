@@ -101,9 +101,11 @@ test_url:           http://example.dev
 # ----------------------- #
 #         Plugins         #
 # ----------------------- #
-post_type:
-generic_index:
-  category:
-    title_prefix:   'Category: '
-backtick:
-  tag:              rainbow
+generators:
+  generic_index:
+    category:
+    tag:
+      related:      true
+
+tags:
+  backtick:         rainbow

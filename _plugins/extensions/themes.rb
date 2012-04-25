@@ -24,6 +24,7 @@
 #          |   `-- post.html
 
 module Jekyll
+
   class Site
     alias_method :orig_read_directories, :read_directories
 

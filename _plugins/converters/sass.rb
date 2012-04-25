@@ -5,6 +5,7 @@
 require 'sass'
 
 module Jekyll
+
   class SassConverter < Converter
     safe true
     priority :low
@@ -12,6 +13,8 @@ module Jekyll
     attr_accessor :sass_style
 
     def matches(ext)
+      return false if !@enabled
+
       if ext =~ /sass/i
         @sass_syntax = :sass
       elsif ext =~ /scss/i
@@ -30,4 +33,5 @@ module Jekyll
       engine.render
     end
   end
+
 end

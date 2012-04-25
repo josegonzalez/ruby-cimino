@@ -6,16 +6,18 @@ require File.dirname(__FILE__) + '/../extensions/post_filter'
 require 'rubypants'
 
 module Jekyll
+
   class BacktickCodeBlockFilter < PostFilter
     def initialize(config)
       @tag = "highlight"
-      if config.key?('backtick') and config['backtick'].key?('tag')
-        @tag = config['backtick']['tag']
-      end
+      @tag = config['tags']['backtick'] if config.key?('tags') && config['tags'].key?('backtick')
+      @enabled = true
+      @enabled = false if config.key?('disabled_tags') && config['disabled_tags'].member?('backtick_code')
       super
     end
 
     def pre_render(post)
+      return post.content unless @enabled
       post.content = post.content.gsub(/^`{3} (.*)$/, "{% #{@tag} \\1 %}")
       post.content = post.content.gsub(/^`{3}$/, "{% end#{@tag} %}")
     end
@@ -24,4 +26,5 @@ module Jekyll
       post.content
     end
   end
+
 end

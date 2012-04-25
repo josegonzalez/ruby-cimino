@@ -5,12 +5,13 @@
 require 'haml'
 
 module Jekyll
+
   class HamlConverter < Converter
     safe true
     priority :low
 
     def matches(ext)
-      ext =~ /haml/i
+      @enabled ? ext=~ /haml/i : false
     end
 
     def output_ext(ext)
@@ -22,4 +23,5 @@ module Jekyll
       engine.render
     end
   end
+
 end

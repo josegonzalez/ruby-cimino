@@ -5,6 +5,7 @@
 require 'pathname'
 
 module Jekyll
+
   class Page
     def subfolder
       @dir
@@ -57,6 +58,8 @@ module Jekyll
     priority :low
 
     def generate(site)
+      return if !@enabled
+
       site_folder = site.config['destination']
       Pathname.new(site_folder).mkdir unless File.directory?(site_folder)
 
@@ -70,4 +73,5 @@ module Jekyll
       site.static_files << sitemap
     end
   end
+
 end

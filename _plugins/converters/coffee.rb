@@ -5,12 +5,13 @@
 require 'coffee-script'
 
 module Jekyll
+
   class CoffeeScriptConverter < Converter
     safe true
     priority :low
 
     def matches(ext)
-      ext =~ /coffee/i
+      @enabled ? ext=~ /coffee/i : false
     end
 
     def output_ext(ext)
@@ -25,4 +26,5 @@ module Jekyll
       end
     end
   end
+
 end

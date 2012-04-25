@@ -52,45 +52,58 @@ module Jekyll
       self.content = @site.layouts[type].content
       self.data = @site.layouts[type].data
 
-      self.data[::Inflection.plural(config['page_type'])] = pages
+      self.data[::Inflection.plural(config['page_type'])] = pages.keys.sort
 
       self.process(@name)
     end
   end
 
-  class GenericPageGenerator < Generator
+  class GenericIndexGenerator < Generator
     safe true
 
-    def generate(site)
-      return if !site.config.has_key?('generic_index') || site.config['generic_index'].nil?
+    def initialize(config)
+      super
+      return @enabled = false if @plugin_config.empty?
 
-      site.config['generic_index'].each do |page_type|
-        config = {}
+      config = {}
+      @plugin_config.each do |page_type|
+        c = {}
         if page_type.is_a?(Hash)
-          page_type, config['related'] = page_type.shift
+          page_type, c['related'] = page_type.shift
         elsif page_type.is_a?(Array)
-          page_type, config = page_type
+          page_type, c = page_type
         end
 
-        config = config.merge!({
+        c ||= {}
+        c = c.merge!({
           'related'    => false,
           'page_title' => page_type.capitalize + ': ',
           'dir'        => ::Inflection.plural(page_type),
           'page_type'  => page_type,
         }){ |key, v1, v2| v1 }
 
-        page_types = site.send ::Inflection.plural(page_type)
-        next unless page_types
+        config[page_type] =  c
+      end
 
-        type = "generic_index/#{page_type}/index"
+      @plugin_config = config
+    end
+
+    def generate(site)
+      return if !@enabled
+
+      @plugin_config.each do |page_type, config|
+        pages = site.send ::Inflection.plural(config['page_type'])
+        next unless pages
+
+        type = "generic_index/#{config['page_type']}/index"
         if site.layouts.key?(type)
-          page_types.keys.each do |page|
+          pages.keys.each do |page|
             write_index(site, File.join(config['dir'], page.gsub(/\s/, "-").gsub(/[^\w-]/, '').downcase), type, page, config)
           end
         end
 
-        type = "generic_index/#{page_type}/list"
-        write_list(site, config['dir'], type, page_types.keys.sort, config) if site.layouts.key?(type)
+        type = "generic_index/#{config['page_type']}/list"
+        write_list(site, config['dir'], type, pages, config) if site.layouts.key?(type)
       end
     end
 
