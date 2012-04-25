@@ -5,7 +5,8 @@
 require 'inflection'
 
 module Jekyll
-  class GenericPageTypeIndex < Page
+
+  class GenericIndexPage < Page
     def initialize(site, base, dir, type, page, config)
       @site = site
       @base = base
@@ -38,7 +39,7 @@ module Jekyll
     end
   end
 
-  class GenericPageTypeList < Page
+  class GenericIndexList < Page
     attr_accessor :page_type
 
     def initialize(site,  base, dir, type, pages, config)
@@ -94,17 +95,18 @@ module Jekyll
     end
 
     def write_index(site, dir, type, page, config)
-      index = GenericPageTypeIndex.new(site, site.source, dir, type, page, config)
+      index = GenericIndexIndex.new(site, site.source, dir, type, page, config)
       index.render(site.layouts, site.site_payload)
       index.write(site.dest)
       site.static_files << index
     end
 
     def write_list(site, dir, type, pages, config)
-      index = GenericPageTypeList.new(site, site.source, dir, type, pages, config)
+      index = GenericIndexList.new(site, site.source, dir, type, pages, config)
       index.render(site.layouts, site.site_payload)
       index.write(site.dest)
       site.static_files << index
     end
   end
+
 end
