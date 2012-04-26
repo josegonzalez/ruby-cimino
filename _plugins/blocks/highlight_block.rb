@@ -49,9 +49,11 @@ module Jekyll
   class EnhancedHighlightBlock < Liquid::Block
     include PygmentsCode
     include TemplateWrapper
-    CaptionUrlTitle = /(\S[\S\s]*)\s+(https?:\/\/)(\S+)\s+(.+)/i
-    CaptionUrl = /(\S[\S\s]*)\s+(https?:\/\/)(\S+)/i
-    Caption = /(\S[\S\s]*)/
+
+    CodeUrlTitle = /(\S[\S\s]*)\s+(https?:\/\/)(\S+)\s+(.+)/i
+    CodeUrl = /(\S[\S\s]*)\s+(https?:\/\/)(\S+)/i
+    Code = /(\S[\S\s]*)/
+
     def initialize(tag_name, markup, tokens)
       @title = nil
       @caption = nil
@@ -61,13 +63,13 @@ module Jekyll
         @filetype = $1
         markup = markup.sub(/lang:\w+/i,'')
       end
-      if markup =~ CaptionUrlTitle
+      if markup =~ CodeUrlTitle
         @file = $1
         @caption = "<figcaption><span>#{$1}</span><a href='#{$2 + $3}'>#{$4}</a></figcaption>"
-      elsif markup =~ CaptionUrl
+      elsif markup =~ CodeUrl
         @file = $1
         @caption = "<figcaption><span>#{$1}</span><a href='#{$2 + $3}'>link</a></figcaption>"
-      elsif markup =~ Caption
+      elsif markup =~ Code
         @file = $1
         @caption = "<figcaption><span>#{$1}</span></figcaption>\n"
       end
