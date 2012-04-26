@@ -24,14 +24,18 @@ layout: default
 							<span class="year">{{ page.date | date: '%Y' }}</span>
 							</date>
 						</p>
+						{% if page.category.size > 0 %}
 						<ul class="list-category list-linear">
 							<li class="list-head">category: </li>
 							<li>{{ page.category }}</li>
 						</ul>
+						{% endif %}
+						{% if tags.size > 0 %}
 						<ul class="list-tag list-linear">
 							<li class="list-head">tags: </li>
 							{% for tag in page.tags %}<li>{{ tag }}</li>{% endfor %}
 						</ul>
+						{% endif %}
 					</div><!-- meta -->
 				</div><!-- entry-content -->
 				<div class="misc-content">
