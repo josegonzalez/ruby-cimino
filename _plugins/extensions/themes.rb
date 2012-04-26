@@ -23,6 +23,11 @@
 #          `-- _layouts
 #          |   `-- post.html
 
+OVERRIDE_THEME = nil
+if ENV.has_key?('theme') && ENV['theme'] =~ /[\w_-]+/i
+  OVERRIDE_THEME = ENV['theme']
+end
+
 module Jekyll
 
   class Site
@@ -44,6 +49,7 @@ module Jekyll
     def read_layouts(dir = '')
       theme = 'classic'
       theme = self.config['theme'] if self.config.key?('theme')
+      theme = OVERRIDE_THEME unless OVERRIDE_THEME.nil?
 
       # Load theme from cimino base if possible
       # Then override with source theme
@@ -72,6 +78,7 @@ module Jekyll
     def read_theme_directories(dir = '')
       theme = 'classic'
       theme = self.config['theme'] if self.config.key?('theme')
+      theme = OVERRIDE_THEME unless OVERRIDE_THEME.nil?
       theme = File.join('_themes', theme)
       theme = File.exists?(File.join(self.source, theme)) ? theme : File.join('..', theme)
       read_directories(File.join(theme, dir), theme)
@@ -212,6 +219,7 @@ module Jekyll
 
       theme = 'classic'
       theme = site.config['theme'] if site.config.key?('theme')
+      theme = OVERRIDE_THEME unless OVERRIDE_THEME.nil?
       [ '', '..' ].each do |dir|
         includes_dir = File.join(site.source, dir, '_themes', theme, '_includes')
 
