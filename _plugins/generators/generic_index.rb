@@ -6,7 +6,7 @@ require 'inflection'
 
 module Jekyll
 
-  class GenericIndexPage < Page
+  class GenericIndexIndex < Page
     def initialize(site, base, dir, type, page, config)
       @site = site
       @base = base
