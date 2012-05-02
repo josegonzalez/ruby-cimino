@@ -126,3 +126,5 @@ generators:
 
 tags:
   backtick:         rainbow
+
+highlighter:        coderay

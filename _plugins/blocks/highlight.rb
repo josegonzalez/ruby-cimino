@@ -41,13 +41,13 @@
 # <pre><code>&lt;sarcasm> Ooooh, sarcasm... How original!&lt;/sarcasm></code></pre>
 # </figure>
 #
-require File.dirname(__FILE__) + '/../utilities/pygments_code'
+require File.dirname(__FILE__) + '/../utilities/highlight_code'
 require File.dirname(__FILE__) + '/../utilities/template_wrapper'
 
 module Jekyll
 
   class EnhancedHighlightBlock < Liquid::Block
-    include PygmentsCode
+    include HighlightCode
     include TemplateWrapper
 
     CodeUrlTitle = /(\S[\S\s]*)\s+(https?:\/\/)(\S+)\s+(.+)/i
