@@ -99,14 +99,15 @@ task :new_post do
     exit(1)
   end
 
-  post = { 'title' => ARGV[1] }
-  [ 'category', 'comments', 'sharing'].each { |k| post[k] = c[k] if ENV.key?(k) }
-  [ 'category', 'comments', 'sharing'].each { |k| post[k] = ENV[k] if ENV.key?(k) }
+  data = { 'title' => ARGV[1] }
+  [ 'category', 'comments', 'sharing'].each { |k| data[k] = c[k] if ENV.key?(k) }
+  [ 'category', 'comments', 'sharing'].each { |k| data[k] = ENV[k] if ENV.key?(k) }
+  [ 'category', 'comments', 'sharing'].each { |k| data[k] = true if !data.key?(k) }
 
   slug = "#{Date.today}-#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
   file = File.join(File.dirname(__FILE__), 'source', '_posts', "#{slug}.#{c['format']}")
 
-  created = create_file(c, file, 'post', post)
+  created = create_file(c, file, 'post', data)
   exit(created ? 0 : 1)
 end
 
@@ -117,14 +118,15 @@ task :new_page do
     exit(1)
   end
 
-  page = { 'title' => ARGV[1] }
-  [ 'comments', 'sharing'].each { |k| page[k] = c[k] if ENV.key?(k) }
-  [ 'comments', 'sharing'].each { |k| page[k] = ENV[k] if ENV.key?(k) }
+  data = { 'title' => ARGV[1] }
+  [ 'comments', 'sharing'].each { |k| data[k] = c[k] if ENV.key?(k) }
+  [ 'comments', 'sharing'].each { |k| data[k] = ENV[k] if ENV.key?(k) }
+  [ 'comments', 'sharing'].each { |k| data[k] = true if !data.key?(k) }
 
   slug = "#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
   file = File.join(File.dirname(__FILE__), 'source', slug, "index.#{c['format']}")
 
-  created = create_file(c, file, 'page', page)
+  created = create_file(c, file, 'page', data)
   exit(created ? 0 : 1)
 end
 
