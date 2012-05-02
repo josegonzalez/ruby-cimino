@@ -19,19 +19,36 @@ location:           'New York, New York'
 # ----------------------- #
 #   3rd Party Settings    #
 # ----------------------- #
+delicious_user:
+delicious_count:    3
+delicious_show:     true
+
 disqus_shortname:
+
+facebook_user:
+facebook_show:      true
+
+flickr_user:
+flickr_show:        true
+
+feedburner_name:
 
 ga_tracking_id:
 
 github_user:
 github_repo:
-github_forkme:
+github_forkme:      false
+github_show:        true
+
+googleplus_user:
+googleplus_show:    true
+
+pinboard_user:
+pinboard_count:     3
+pinboard_show:      true
 
 twitter_user:
-
-flickr_user:
-
-feedburner_name:
+twitter_show:       true
 
 # ----------------------- #
 #          Jekyll         #

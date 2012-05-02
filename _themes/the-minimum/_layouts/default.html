@@ -73,6 +73,18 @@
               {% if site.twitter_user %}
                 <li class="twitter"><a href="http://twitter.com/{{ site.twitter_user }}/" rel="me">twitter.com/{{ site.twitter_user }}</a></li>
               {% endif %}
+              {% if site.googleplus_user %}
+                <li class="googleplus"><a href="https://plus.google.com/{{ site.googleplus_user }}?rel=author" rel="me">plus.google.com/{{ site.googleplus_user }}</a></li>
+              {% endif %}
+              {% if site.pinboard_user %}
+                <li class="pinboard"><a href="http://pinboard.in/u:{{ site.pinboard_user }}" rel="me">pinboard.in/u:{{ site.pinboard_user }}</a></li>
+              {% endif %}
+              {% if site.delicious_user %}
+                <li class="delicious"><a href="http://delicious.com/{{ site.delicious_user }}/" rel="me">delicious.com/{{ site.delicious_user }}</a></li>
+              {% endif %}
+              {% if site.flickr_user %}
+                <li class="flickr"><a href="http://www.flickr.com/photos/{{ site.flickr_user }}/" rel="me">flickr.com/photos/{{ site.flickr_user }}</a></li>
+              {% endif %}
               {% if site.feedburner_name %}
                 <li class="rss"><a href="http://feeds.feedburner.com/{{ site.feedburner_name }}">Subscribe to RSS Feed</a></li>
               {% else %}
