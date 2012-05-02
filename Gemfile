@@ -24,7 +24,11 @@ gem "rmagick"
 gem "rubypants"
 
 # Utilities requirements
+gem "coderay"
 gem "pygments.rb"
+# Note: ultraviolet is not included since it
+# requires outside dependencies that will break
+# your install if not available, and no one wants that.
 
 # Rakefile requirements
 group :development do
