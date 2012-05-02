@@ -46,8 +46,6 @@ task :test do
   Dir.chdir('source') { system "jekyll --no-lsi --url #{c['test_url']}" }
 end
 
-
-
 # TODO: Support SASS compiling through compass
 desc 'Watch the site and regenerate when it changes'
 task :watch do
@@ -97,12 +95,14 @@ task :new_post do
     exit(1)
   end
 
-  [ 'category', 'comments', 'sharing'].each { |k| c[k] = ENV[k] if ENV.key?(k) }
+  post = { 'title' => ARGV[1] }
+  [ 'category', 'comments', 'sharing'].each { |k| post[k] = c[k] if ENV.key?(k) }
+  [ 'category', 'comments', 'sharing'].each { |k| post[k] = ENV[k] if ENV.key?(k) }
 
   slug = "#{Date.today}-#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
   file = File.join(File.dirname(__FILE__), 'source', '_posts', "#{slug}.#{c['format']}")
 
-  created = create_file(c, file, 'post', ARGV[1])
+  created = create_file(c, file, 'post', post)
   exit(created ? 0 : 1)
 end
 
@@ -113,12 +113,14 @@ task :new_page do
     exit(1)
   end
 
-  [ 'comments', 'sharing'].each { |k| c[k] = ENV[k] if ENV.key?(k) }
+  page = { 'title' => ARGV[1] }
+  [ 'comments', 'sharing'].each { |k| page[k] = c[k] if ENV.key?(k) }
+  [ 'comments', 'sharing'].each { |k| page[k] = ENV[k] if ENV.key?(k) }
 
   slug = "#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
   file = File.join(File.dirname(__FILE__), 'source', slug, "index.#{c['format']}")
 
-  created = create_file(c, file, 'page', ARGV[1])
+  created = create_file(c, file, 'page', page)
   exit(created ? 0 : 1)
 end
 
@@ -242,7 +244,7 @@ def ask(message)
   STDIN.gets.strip.downcase[0] == 'y'
 end
 
-def create_file(c, file, template, title)
+def create_file(c, file, template, data)
   if File.exists?(file) && !ask("#{file} already exists. Overwrite?")
     puts "Aborting creation of #{file}"
     return false
@@ -260,7 +262,7 @@ def create_file(c, file, template, title)
 
   # Create the post file
   FileUtils.mkpath(File.dirname(file))
-  File.open(file, 'w') {|f| f.write(template.render(Object.new, :title => title, :c => c)) }
+  File.open(file, 'w') {|f| f.write(template.render(Object.new, :data => data)) }
 
   # Post processing
   if c["editor"]

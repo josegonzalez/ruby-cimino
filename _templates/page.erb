@@ -1,7 +1,7 @@
 ---
-  title:    "<%= title %>"
+  title:    "<%= data['title'] %>"
   layout:   page
-  comments: <%= c['comments'].to_s %>
-  sharing:  <%= c['sharing'].to_s %>
+  comments: <%= data['comments'].to_s %>
+  sharing:  <%= data['sharing'].to_s %>
   date:     <%= Time.now.strftime('%Y-%m-%d %H:%M') %>
 ---
