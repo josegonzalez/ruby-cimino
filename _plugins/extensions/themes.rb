@@ -23,9 +23,10 @@
 #          `-- _layouts
 #          |   `-- post.html
 
-OVERRIDE_THEME = nil
-if ENV.has_key?('theme') && ENV['theme'] =~ /[\w_-]+/i
-  OVERRIDE_THEME = ENV['theme']
+if ENV.has_key?('JEKYLL_THEME') && ENV['JEKYLL_THEME'] =~ /[\w_-]+/i
+  OVERRIDE_THEME = ENV['JEKYLL_THEME']
+else
+  OVERRIDE_THEME = nil
 end
 
 module Jekyll

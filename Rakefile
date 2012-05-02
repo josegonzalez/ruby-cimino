@@ -42,6 +42,10 @@ task :test do
   puts '## Move the stashed blog posts back to the posts directory'
   FileUtils.mv Dir.glob('_tmp/stash/*.*'), '_posts'
 
+  env_vars = {}
+  [ 'theme' ].each { |k| env_vars[k] = ENV[k] if ENV.key?(k) }
+  env_vars.map{ |k,v| ENV["JEKYLL_#{k.upcase}"] = v }
+
   puts '## Generating Site with Jekyll'
   Dir.chdir('source') { system "jekyll --no-lsi --url #{c['test_url']}" }
 end
