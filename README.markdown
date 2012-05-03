@@ -154,7 +154,7 @@ Also adds support for pullquotes:
 - Add the ability to comment and share posts/pages
 - Cleanup plugin documentation
 - Tests for plugins
-- Add template for `_config.yml`
+- ~~Add template for `_config.yml`~~
 - Split up Rakefile into separate tasks
 - Thor support
 - Include common deployment scenarios - Github, Heroku, Amazon, Rsync
