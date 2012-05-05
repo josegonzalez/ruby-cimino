@@ -23,6 +23,8 @@
 #          `-- _layouts
 #          |   `-- post.html
 
+require 'inflection'
+
 if ENV.has_key?('JEKYLL_THEME') && ENV['JEKYLL_THEME'] =~ /[\w_-]+/i
   OVERRIDE_THEME = ENV['JEKYLL_THEME']
 else
@@ -57,7 +59,6 @@ module Jekyll
       [ '..', '' ].each do |base|
         recursive_read_layouts(File.join(base, '_themes', theme, dir))
       end
-
     end
 
     # Read all the files recursively in <source>/<dir>/_layouts
@@ -65,8 +66,9 @@ module Jekyll
     #
     # Returns nothing.
     def recursive_read_layouts(dir = '')
-      base = File.join(self.source, dir, "_layouts")
+      base = File.join(self.source, dir, '_layouts')
       return unless File.exists?(base)
+
       entries = []
       Dir.chdir(base) { entries = filter_entries(Dir.glob('**/*.*')) }
 
