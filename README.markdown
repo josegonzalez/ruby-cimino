@@ -149,7 +149,7 @@ Also adds support for pullquotes:
 
 # Todo
 
-- Include plugins within themes
+- ~~Include plugins within themes~~
 - More themes
 - Add the ability to comment and share posts/pages
 - Cleanup plugin documentation

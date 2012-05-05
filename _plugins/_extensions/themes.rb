@@ -59,9 +59,41 @@ module Jekyll
       [ '..', '' ].each do |base|
         recursive_read_layouts(File.join(base, '_themes', theme, dir))
       end
+
+      ## Load the plugins from your themes where necessary
+      [ '', '..' ].each do |base|
+        read_theme_plugins(File.join(base, '_themes', theme))
+      end
     end
 
-    # Read all the files recursively in <source>/<dir>/_layouts
+    # Read all the plugins recursively in <source>/<dir>/<theme>/_plugins
+    # and ensures generators and converters are added to the generation phase
+    #
+    # Returns nothing.
+    def read_theme_plugins(dir = '')
+      base = File.expand_path(File.join(self.source, dir, '_plugins'))
+
+      existing_converters = Jekyll::Converter.subclasses.select { |c| !self.safe || c.safe }
+      existing_generators = Jekyll::Generator.subclasses.select { |c| !self.safe || c.safe }
+
+      Dir[File.join(base, "**/*.rb")].each do |f|
+        require f
+      end
+
+      Jekyll::Converter.subclasses.select do |c|
+        !self.safe || c.safe
+      end.map do |c|
+        self.generators << c.new(self.config) unless existing_converters.member?(c)
+      end
+
+      Jekyll::Generator.subclasses.select do |c|
+        !self.safe || c.safe
+      end.map do |c|
+        self.generators << c.new(self.config) unless existing_generators.member?(c)
+      end
+    end
+
+    # Read all the files recursively in <source>/<dir>/<theme>/_layouts
     # and create a new Layout object with each one.
     #
     # Returns nothing.
