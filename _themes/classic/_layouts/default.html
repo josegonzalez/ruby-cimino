@@ -77,17 +77,27 @@
   </a>
   {% endif %}
 
-  {% if site.ga_tracking_id %}
+  <script type="text/javascript">{% if site.comments and page.comments %}
+    var disqus_shortname  = '{{ site.disqus_shortname }}';
+    var disqus_identifier = '{{ page.url }}';
+    var disqus_url        = '{{ site.url }}{{ page.url }}';
+    var disqus_title      = '{{ page.title }}';
+    {% if site.test_url %}var disqus_developer  = location.origin == '{{ site.test_url }}' ? 1 : 0;{% endif %}
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + '{{ site.disqus_shortname }}' + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  {% endif %}{% if site.ga_tracking_id %}
     <!-- Google Analytics -->
-    <script type="text/javascript">
-      (function() {
-        var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
+    (function() {
+      var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
     <!-- Google Analytics end -->
-  {% endif %}
+  {% endif %}</script>
 
 </body>
 </html>
