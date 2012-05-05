@@ -11,7 +11,7 @@ task :new_post do
   end
 
   data = { 'title' => ARGV[1] }
-  [ 'category', 'comments', 'sharing'].each { |k| data[k] = CONFIG[k] if ENV.key?(k) }
+  [ 'category', 'comments', 'sharing'].each { |k| data[k] = CONFIG[k] if CONFIG.key?(k) }
   [ 'category', 'comments', 'sharing'].each { |k| data[k] = ENV[k] if ENV.key?(k) }
   [ 'category', 'comments', 'sharing'].each { |k| data[k] = true if !data.key?(k) }
 
@@ -32,7 +32,7 @@ task :new_page do
   end
 
   data = { 'title' => ARGV[1] }
-  [ 'comments', 'sharing'].each { |k| data[k] = CONFIG[k] if ENV.key?(k) }
+  [ 'comments', 'sharing'].each { |k| data[k] = CONFIG[k] if CONFIG.key?(k) }
   [ 'comments', 'sharing'].each { |k| data[k] = ENV[k] if ENV.key?(k) }
   [ 'comments', 'sharing'].each { |k| data[k] = true if !data.key?(k) }
 
