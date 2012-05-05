@@ -16,10 +16,11 @@ task :setup do
     'title'       => what_is('the title of your blog', 'Jekyll Blog'),
     'author'      => what_is('the name you want to use on your blog', 'Drew Cimino'),
     'email'       => what_is('the public email people can use to contact you', 'mail@example.dev'),
-    'destination' => what_is('the subdirectory where you will have your blog', SOURCE_DIR),
+    'source'      => what_is('the subdirectory where you will have your blog', 'source'),
+    'destination' => what_is('the subdirectory where you will generate your blog to', '_site'),
   }
 
-  config_file = File.join(BASE_DIR, data['destination'], '_config.yml')
+  config_file = File.join(BASE_DIR, data['source'], '_config.yml')
 
   if File.exists?(config_file) && !ask?("#{config_file} already exists. Overwrite?")
     puts "Aborting creation of #{config_file}"
