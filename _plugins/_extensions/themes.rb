@@ -115,8 +115,14 @@ module Jekyll
       theme = self.config['theme'] if self.config.key?('theme')
       theme = OVERRIDE_THEME unless OVERRIDE_THEME.nil?
       theme = File.join('_themes', theme)
-      theme = File.exists?(File.join(self.source, theme)) ? theme : File.join('..', theme)
-      read_directories(File.join(theme, dir), theme)
+
+      base_theme = File.join('..', theme)
+      read_directories(File.join(base_theme, dir), base_theme)
+
+      if File.exists?(File.join(self.source, theme))
+        read_directories(File.join(theme, dir), theme)
+      end
+
       read_directories(dir)
     end
 
