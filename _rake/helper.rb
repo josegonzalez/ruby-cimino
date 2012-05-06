@@ -41,7 +41,7 @@ def create_file(file, template, data)
   end
 
   # Create the Template
-  template_path = "./#{SOURCE_DIR}/_templates/#{template}.erb"
+  template_path = "#{SOURCE_DIR}/_templates/#{template}.erb"
   template_path = "./_templates/#{template}.erb" if !File.exists?(template_path)
   if !File.exists?(template_path)
     puts "Template '#{template}' does not exist!"

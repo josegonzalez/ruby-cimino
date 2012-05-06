@@ -13,7 +13,7 @@ task :generate do
   require_config
 
   puts '## Move the stashed blog posts back to the posts directory'
-  FileUtils.mv Dir.glob('_tmp/stash/*.*'), '_posts'
+  FileUtils.mv Dir.glob('_tmp/stash/*.*'), File.join(SOURCE_DIR, '_posts')
 
   puts '## Generating Site with Jekyll'
   Dir.chdir(SOURCE_DIR) { system 'jekyll' }
@@ -23,7 +23,7 @@ desc "Move all stashed posts back into the posts directory, ready for site gener
 task :integrate do
   require_config
 
-  FileUtils.mv Dir.glob("_tmp/stash/*.*"), "_posts"
+  FileUtils.mv Dir.glob("_tmp/stash/*.*"), File.join(SOURCE_DIR, '_posts')
 end
 
 # TODO: Add a flag to disable plugin compilation
@@ -40,7 +40,7 @@ task :isolate, :filename do |t, args|
 
   puts '* Moving posts to stash dir'
 
-  Dir.glob("_posts/*.*") do |post|
+  Dir.glob(File.join(SOURCE_DIR, '_posts', '*.*')) do |post|
     FileUtils.mv post, "_tmp/stash" unless post.include?(ARGV[1])
   end
 
@@ -50,7 +50,7 @@ task :isolate, :filename do |t, args|
   puts '* Moving posts from _tmp/stash/ directory to _posts/ directory'
 
   # Move the stashed blog posts back to the posts directory
-  FileUtils.mv Dir.glob("_tmp/stash/*.*"), "_posts"
+  FileUtils.mv Dir.glob("_tmp/stash/*.*"), File.join(SOURCE_DIR, '_posts')
 
   exit(0) # Hack so that we don't have to worry about rake trying any funny business
 end
@@ -61,7 +61,7 @@ task :test do
   require_config
 
   puts '## Move the stashed blog posts back to the posts directory'
-  FileUtils.mv Dir.glob('_tmp/stash/*.*'), '_posts'
+  FileUtils.mv Dir.glob('_tmp/stash/*.*'), File.join(SOURCE_DIR, '_posts')
 
   env_vars = {}
   [ 'theme' ].each { |k| env_vars[k] = ENV[k] if ENV.key?(k) }

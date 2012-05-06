@@ -73,5 +73,5 @@ desc 'List all draft posts'
 task :drafts do
   require_config
 
-  puts `find ./#{SOURCE_DIR}/_posts -type f -exec grep -H 'published: false' {} \\;`
+  puts `find #{SOURCE_DIR}/_posts -type f -exec grep -H 'published: false' {} \\;`
 end

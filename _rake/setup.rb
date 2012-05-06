@@ -5,8 +5,6 @@ task :setup do
   # Ensure all directories exist
   puts "## Creating directories"
   [ SOURCE_DIR, File.join(SOURCE_DIR, '_posts') ].each do |dir|
-    dir = File.join(BASE_DIR, dir)
-
     puts " - #{dir}"
     FileUtils.mkdir_p(dir)
   end
@@ -28,7 +26,7 @@ task :setup do
   end
 
   # Create the Template
-  template_path = "./#{SOURCE_DIR}/_templates/_config.erb"
+  template_path = "#{SOURCE_DIR}/_templates/_config.erb"
   template_path = "./_templates/_config.erb" if !File.exists?(template_path)
   if !File.exists?(template_path)
     puts "Template '#{template}' does not exist!"
@@ -62,7 +60,7 @@ task :setup do
   [ 'category', 'comments', 'sharing'].each { |k| data[k] = true if !data.key?(k) }
 
   slug = "#{Date.today}-#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
-  file = File.join(BASE_DIR, SOURCE_DIR, '_posts', "#{slug}.#{CONFIG['format']}")
+  file = File.join(SOURCE_DIR, '_posts', "#{slug}.#{CONFIG['format']}")
 
   if create_file(file, 'post', data)
     puts 'Have fun blogging!'

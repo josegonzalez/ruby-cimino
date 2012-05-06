@@ -16,7 +16,7 @@ task :new_post do
   [ 'category', 'comments', 'sharing'].each { |k| data[k] = true if !data.key?(k) }
 
   slug = "#{Date.today}-#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
-  file = File.join(BASE_DIR, SOURCE_DIR, '_posts', "#{slug}.#{CONFIG['format']}")
+  file = File.join(SOURCE_DIR, '_posts', "#{slug}.#{CONFIG['format']}")
 
   created = create_file(file, 'post', data)
   exit(created ? 0 : 1)
@@ -37,7 +37,7 @@ task :new_page do
   [ 'comments', 'sharing'].each { |k| data[k] = true if !data.key?(k) }
 
   slug = "#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
-  file = File.join(BASE_DIR, SOURCE_DIR, slug, "index.#{CONFIG['format']}")
+  file = File.join(SOURCE_DIR, slug, "index.#{CONFIG['format']}")
 
   created = create_file(file, 'page', data)
   exit(created ? 0 : 1)
