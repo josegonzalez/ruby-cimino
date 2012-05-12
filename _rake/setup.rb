@@ -50,7 +50,7 @@ task :setup do
   end
 
   post_name = what_is('the name of your post')
-  if post_name.empty?
+  if post_name.nil?
     puts 'No new post will be created. We\'ve created your blog, so get cracking!'
     next
   end
