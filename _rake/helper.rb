@@ -43,8 +43,10 @@ def create_file(file, template, data)
   end
 
   # Create the Template
-  template_path = "#{SOURCE_DIR}/_templates/#{template}.erb"
-  template_path = "./_templates/#{template}.erb" if !File.exists?(template_path)
+  t = File.join("_templates", "#{template}.erb")
+  template_path = File.join(BASE_DIR, t)
+  template_path = File.join(THEME_DIR, t) if defined?(THEME_DIR) && File.exists?(File.join(THEME_DIR, t))
+  template_path = File.join(SOURCE_DIR, t) if defined?(SOURCE_DIR) && File.exists?(File.join(SOURCE_DIR, t))
   if !File.exists?(template_path)
     puts "Template '#{template}' does not exist!"
     return false
