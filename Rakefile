@@ -16,6 +16,11 @@ SOURCE_DIR = File.join(BASE_DIR, ENV.fetch('source', 'source'))
 CONFIG_FILE = File.join(SOURCE_DIR, '_config.yml')
 CONFIG = YAML.load_file(CONFIG_FILE) if File.exists?(CONFIG_FILE)
 
+# Require rake tasks from source and current theme
+dirs = [ SOURCE_DIR ]
+[ BASE_DIR, SOURCE_DIR ].each { |dir| dirs << File.join(dir, '_themes', CONFIG['theme']) } if defined?(CONFIG)
+dirs.each { |dir| Dir[File.join(dir, '_rake', "**/*.rb")].each { |f| require f } }
+
 # Ensure all directories exist
 [ '', 'pygments_code', 'stash' ].each do |dir|
   FileUtils.mkdir_p(File.join(BASE_DIR, '_tmp', dir))
