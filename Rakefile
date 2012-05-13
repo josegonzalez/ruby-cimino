@@ -16,6 +16,12 @@ SOURCE_DIR = File.join(BASE_DIR, ENV.fetch('source', 'source'))
 CONFIG_FILE = File.join(SOURCE_DIR, '_config.yml')
 CONFIG = YAML.load_file(CONFIG_FILE) if File.exists?(CONFIG_FILE)
 
+if defined?(CONFIG)
+  theme_dir = File.join(SOURCE_DIR, '_themes', CONFIG['theme'])
+  theme_dir = File.join(BASE_DIR, '_themes', CONFIG['theme']) unless File.exists?(theme_dir)
+  THEME_DIR = theme_dir if File.exists?(theme_dir)
+end
+
 # Require rake tasks from source and current theme
 dirs = [ SOURCE_DIR ]
 [ BASE_DIR, SOURCE_DIR ].each { |dir| dirs << File.join(dir, '_themes', CONFIG['theme']) } if defined?(CONFIG)
