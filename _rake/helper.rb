@@ -35,6 +35,8 @@ def require_config
 end
 
 def create_file(file, template, data)
+  require_config
+
   if File.exists?(file) && !ask?("#{file} already exists. Overwrite?")
     puts "Aborting creation of #{file}"
     return false
