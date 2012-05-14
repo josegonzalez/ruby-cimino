@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<div id="post">
+<div class="post">
 	<h1>{{ page.category}}</h1>
 	{% for post in site.categories[page.category] %}
 	<div class="post{% if forloop.first %} first{% endif %}">
