@@ -28,7 +28,7 @@ def what_is(something, default = nil)
 
   it_is = STDIN.gets.strip
   it_is = default if it_is.empty?
-  return it_is
+  it_is
 end
 
 def require_config
@@ -68,5 +68,5 @@ def create_file(file, template, data)
     Clipboard.copy file
   end
 
-  return true
+  true
 end
