@@ -21,13 +21,14 @@ def ask?(message)
   STDIN.gets.strip.downcase[0] == 'y'
 end
 
-def what_is(something, default)
+def what_is(something, default = nil)
   message = "What is #{something}?\n"
   message += "[#{default}] > " unless default.nil?
   print message
 
   it_is = STDIN.gets.strip
   it_is = default if it_is.empty?
+  return it_is
 end
 
 def require_config
