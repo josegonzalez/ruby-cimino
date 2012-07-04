@@ -35,7 +35,7 @@ module Jekyll
         collated_posts[ y ][ m ][ d ] = [] unless collated_posts[ y ][ m ].key? d
         collated_posts[ y ][ m ][ d ].push(post) unless collated_posts[ y ][ m ][ d ].include?(post)
       end
-      return collated_posts
+      collated_posts
     end
 
   end
