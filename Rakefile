@@ -12,7 +12,7 @@ require File.join(File.dirname(__FILE__), '_rake', 'setup')
 
 # Constants
 BASE_DIR = File.dirname(__FILE__)
-SOURCE_DIR = File.join(BASE_DIR, ENV.fetch('source', 'source'))
+SOURCE_DIR = File.expand_path(File.join(BASE_DIR, ENV.fetch('source', 'source')))
 CONFIG_FILE = File.join(SOURCE_DIR, '_config.yml')
 CONFIG = YAML.load_file(CONFIG_FILE) if File.exists?(CONFIG_FILE)
 

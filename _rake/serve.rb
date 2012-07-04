@@ -12,7 +12,12 @@ desc 'start up an instance of serve on the output files'
 task :start_serve => :stop_serve do
   require_config
 
-  cd CONFIG['site'] do
+  destination = Pathname.new(CONFIG['destination'])
+  if destination.relative?
+    destination = Pathname.new(File.expand_path(File.join(SOURCE_DIR, destination)))
+  end
+
+  Dir.chdir(destination.to_s) do
     print 'Starting serve...'
     ok_failed system("serve #{CONFIG['serve_port']} > /dev/null 2>&1 &")
   end
