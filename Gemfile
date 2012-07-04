@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 # Jekyll requirements
 gem "jekyll",       '~> 0.11'
-gem "gsl",          '~> 1.14'
+gem 'gsl',          :git => 'https://github.com/romanbsd/rb-gsl.git'
 
 # Converter Requirements
 gem "redcarpet",    '~> 1.17.2'
@@ -32,6 +32,10 @@ gem "pygments.rb"
 
 # Rakefile requirements
 group :development do
-  gem "em-dir-watcher"
   gem "clipboard"
+  gem "eventmachine"
+  gem "em-dir-watcher"
+  gem "guard"
+  gem "serve"
+  gem "tilt"
 end
