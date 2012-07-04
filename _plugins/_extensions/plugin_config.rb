@@ -2,7 +2,7 @@ require 'inflection'
 
 module Jekyll
 
-	class Plugin
+  class Plugin
 
     # Initialize a new plugin.
     #
