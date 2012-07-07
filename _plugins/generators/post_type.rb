@@ -9,6 +9,8 @@ require 'stringex'
 module Jekyll
 
   class PostTypeIndex < Page
+    attr_accessor :title
+
     def initialize(site, base, dir, type, post_path, config)
       slug = post_path.chomp(File.extname(post_path)).to_url
       @site = site
@@ -46,6 +48,7 @@ module Jekyll
         ext = '.textile'
       end
 
+      @title = self.data['title']
       @name = "index#{ext}"
       self.process(@name)
     end
@@ -64,6 +67,10 @@ module Jekyll
 
       self.data[::Inflection.plural(config['post_type'])] = posts
       self.data['is_' + config['post_type']] = true
+
+      @site.payload['site']['post_types'] = {
+        config['post_type'] => posts
+      }
 
       self.process(@name)
     end
