@@ -5,7 +5,7 @@
 module Jekyll
 
   class Site
-    alias_method :orig_site_payload, :site_payload
+    alias_method :iterator_site_payload, :site_payload
 
     # Constuct an array of hashes that will allow the user, using Liquid, to
     # iterate through the keys of _kv_hash_ and be able to iterate through the
@@ -36,14 +36,19 @@ module Jekyll
     end
 
     def site_payload
-      payload = orig_site_payload
+      if @payload
+        payload = @payload
+      else
+        payload = iterator_site_payload
+      end
+
       payload['site']['iterable'] = {
         'categories'  => make_iterable(self.categories, :index => 'name', :items => 'posts'),
         'tags'        => make_iterable(self.tags, :index => 'name', :items => 'posts')
       }
-      payload
+      @payload = payload
+      @payload
     end
-
   end
 
 end
