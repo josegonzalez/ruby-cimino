@@ -1,0 +1,22 @@
+---
+layout: nil
+---
+[{% for post in site.posts %}{% raw %}
+  {
+{% endraw %}    "type": "post",
+    "title": {{ post.title | to_json }},
+    "url": {{ post.url | to_json }},
+    "description": {{ post.description | to_json }}{% raw %}
+  },{% endraw %}{% endfor %}{% for category in site.categories %}{% raw %}
+  {
+{% endraw %}    "type": "category",
+    "title": {{ category[0] | to_json }},
+    "url": "/categories/{{ category[0] | replace:' ', '-' | downcase  }}/"{% raw %}
+  },{% endraw %}{% endfor %}{% for tag in site.tags %}{% raw %}
+  {
+{% endraw %}    "type": "tag",
+    "title": {{ tag[0] | to_json }},
+    "url": "/tags/{{ tag[0] | replace:' ', '-' | downcase  }}/"{% raw %}
+  },{% endraw %}{% endfor %}
+  false
+]

@@ -3,6 +3,7 @@
 
 require 'hpricot'
 require 'nokogiri'
+require 'multi_json'
 
 module Liquid
 
@@ -18,6 +19,10 @@ module Liquid
 
     def date_to_utc(input)
       input.getutc
+    end
+
+    def to_json(input)
+      MultiJson.dump(input)
     end
 
     def html_truncatewords(text, max_length = 200, ellipsis = "")
@@ -43,6 +48,7 @@ module Liquid
   end
 
   module NokogiriTruncator
+
     module NodeWithChildren
       def truncate(max_length)
         return self if inner_text.length <= max_length
