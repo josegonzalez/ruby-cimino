@@ -26,6 +26,7 @@ module Jekyll
 
       self.data['slug'] = slug
       self.data['is_' + config['post_type']] = true
+      self.data['is_' + config['post_type'] + '_index'] = true
 
       if self.data.key?('date')
         # ensure Time via to_s and reparse
