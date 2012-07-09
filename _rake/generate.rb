@@ -23,11 +23,21 @@ task :generate do
   [ 'theme' ].each { |k| env_vars[k] = ENV[k] if ENV.key?(k) }
   env_vars.map{ |k,v| ENV["JEKYLL_#{k.upcase}"] = v }
 
+  if File.exists?(File.join(THEME_DIR, "_commands", "pre"))
+    puts '## Running pre-process command'
+    Dir.chdir(File.join(THEME_DIR, "_commands")) { system "./pre" }
+  end
+
   puts '## Generating Site with Jekyll'
   Dir.chdir(SOURCE_DIR) do
     cmd = [ 'jekyll' ]
     cmd << "--no-lsi --url #{CONFIG['test_url']}" if ENV.key?('JEKYLL_TEST') && ENV['JEKYLL_TEST'] == '1'
     system cmd.join(' ')
+  end
+
+  if File.exists?(File.join(THEME_DIR, "_commands", "post"))
+    puts '## Running post-process command'
+    Dir.chdir(File.join(THEME_DIR, "_commands")) { system "./post" }
   end
 end
 
