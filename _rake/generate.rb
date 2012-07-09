@@ -12,11 +12,23 @@ desc 'Generate jekyll site'
 task :generate do
   require_config
 
+  if ENV.key?('JEKYLL_TEST') && ENV['JEKYLL_TEST'] == '1'
+    puts '## Running in TEST mode'
+  end
+
   puts '## Move the stashed blog posts back to the posts directory'
   FileUtils.mv Dir.glob('_tmp/stash/*.*'), File.join(SOURCE_DIR, '_posts')
 
+  env_vars = {}
+  [ 'theme' ].each { |k| env_vars[k] = ENV[k] if ENV.key?(k) }
+  env_vars.map{ |k,v| ENV["JEKYLL_#{k.upcase}"] = v }
+
   puts '## Generating Site with Jekyll'
-  Dir.chdir(SOURCE_DIR) { system 'jekyll' }
+  Dir.chdir(SOURCE_DIR) do
+    cmd = [ 'jekyll' ]
+    cmd << "--no-lsi --url #{CONFIG['test_url']}" if ENV.key?('JEKYLL_TEST') && ENV['JEKYLL_TEST'] == '1'
+    system cmd.join(' ')
+  end
 end
 
 desc "Move all stashed posts back into the posts directory, ready for site generation."
@@ -55,18 +67,8 @@ task :isolate, :filename do |t, args|
   exit(0) # Hack so that we don't have to worry about rake trying any funny business
 end
 
-# TODO: Support SASS compiling through compass
 desc 'Test generation of jekyll site'
 task :test do
-  require_config
-
-  puts '## Move the stashed blog posts back to the posts directory'
-  FileUtils.mv Dir.glob('_tmp/stash/*.*'), File.join(SOURCE_DIR, '_posts')
-
-  env_vars = {}
-  [ 'theme' ].each { |k| env_vars[k] = ENV[k] if ENV.key?(k) }
-  env_vars.map{ |k,v| ENV["JEKYLL_#{k.upcase}"] = v }
-
-  puts '## Generating Site with Jekyll'
-  Dir.chdir(SOURCE_DIR) { system "jekyll --no-lsi --url #{CONFIG['test_url']}" }
+  ENV["JEKYLL_TEST"] = '1'
+  Rake::Task['generate'].invoke
 end
