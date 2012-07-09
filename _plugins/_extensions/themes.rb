@@ -25,7 +25,7 @@
 
 require 'inflection'
 
-if ENV.has_key?('JEKYLL_THEME') && ENV['JEKYLL_THEME'] =~ /[\w_-]+/i
+if ENV.key?('JEKYLL_THEME') && ENV['JEKYLL_THEME'] =~ /[\w_-]+/i
   OVERRIDE_THEME = ENV['JEKYLL_THEME']
 else
   OVERRIDE_THEME = nil
