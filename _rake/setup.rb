@@ -59,7 +59,7 @@ task :setup do
   [ 'category', 'comments', 'sharing'].each { |k| data[k] = ENV[k] if ENV.key?(k) }
   [ 'category', 'comments', 'sharing'].each { |k| data[k] = true if !data.key?(k) }
 
-  slug = "#{Date.today}-#{ARGV[1].downcase.gsub(/[^\w]+/, '-')}"
+  slug = "#{Date.today}-#{post_name.downcase.gsub(/[^\w]+/, '-')}"
   file = File.join(SOURCE_DIR, '_posts', "#{slug}.#{CONFIG['format']}")
 
   if create_file(file, 'post', data)
