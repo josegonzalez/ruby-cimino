@@ -3,6 +3,7 @@ source "http://rubygems.org"
 # Jekyll requirements
 gem "jekyll",       '~> 0.11'
 gem 'gsl',          :git => 'https://github.com/romanbsd/rb-gsl.git'
+gem 'rake'
 
 # Converter Requirements
 gem "redcarpet",    '~> 1.17.2'
