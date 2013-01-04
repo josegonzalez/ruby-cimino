@@ -1,0 +1,27 @@
+---
+layout: default
+body: full-width template-front-page
+---
+<article class="page type-page hentry">
+  <header class="entry-header">
+    <h1 class="entry-title">
+      {{ page.title }}
+    </h1>
+  </header><!-- .entry-header -->
+  <header class="entry-content">
+    <h2>{{ page.lead }}</h2>
+  </header>
+
+  {% if page.image %}
+  <div class="post-image">
+    <div>
+      <img src="{{ page.image }}" >
+    </div>
+    {% if page.subtitle %}<span>{{ page.subtitle }}</span>{% endif %}
+  </div>
+  {% endif %}
+
+  <div class="entry-content">
+    {{ content }}
+  </div><!-- .entry-content -->
+</article><!-- #page -->

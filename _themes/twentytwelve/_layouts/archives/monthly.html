@@ -1,0 +1,26 @@
+---
+layout: default
+body: full-width template-front-page
+---
+<article class="page type-page hentry">
+  <header class="entry-header">
+    <h1 class="entry-title">
+      {{ page.month | date_to_month }} {{ page.year }}
+    </h1>
+  </header><!-- .entry-header -->
+  <header class="entry-content">
+    <h2>Posts from {{ page.month | date_to_month }}, {{ page.year }}</h2>
+  </header>
+
+  <div class="entry-content">
+    <ul>
+    	{% for d in (1..31) reversed %}
+				{% if page.collated_posts[page.year][page.month][d] %}
+					{% for p in page.collated_posts[page.year][page.month][d] reversed %}
+					<li><strong>{{ p.date | date: "%d" }}</strong> <a href='{{ p.url }}'>{{ p.title }}</a></li>
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+    </ul>
+  </div><!-- .entry-content -->
+</article><!-- #page -->

@@ -1,0 +1,17 @@
+---
+layout: default
+---
+{% for post in site.categories[page.category] %}
+<article class="post type-post hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">
+			{{ post.title }}
+		</h1>
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>{{ post.description }}</p>
+		<a class="more-link" href="{{ post.url }}">{{ site.excerpt_link }}</a>
+	</div><!-- .entry-content -->
+</article><!-- #post -->
+{% endfor %}

@@ -1,0 +1,23 @@
+---
+layout: nil
+---
+/* TEAM */
+
+	Author: {{ site.author }}
+	Site: {{ site.url }}{% if site.github_user %}
+	Github: {{ site.github_user }}{% endif %}{% if site.twitter_user %}
+	Twitter: @{{ site.twitter_user }}{% endif %}
+	From: {{ site.location }}
+
+/* THANKS */
+
+	Tom Preston-Werner: http://tom.preston-werner.com/
+	Jose Diaz-Gonzalez: http://josediazgonzalez.com/
+
+	And many, many others
+
+/* SITE */
+
+	Last update: {{ site.time | date: "%Y/%m/%d" }}
+	Standards: HTML5
+	Software: Jekyll, Cimino

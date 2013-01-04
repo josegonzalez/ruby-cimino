@@ -1,0 +1,42 @@
+---
+layout: home
+title: Jose Diaz-Gonzalez
+is_nav: '/'
+---
+
+{% for post in site.posts limit: 1 %}
+<article class="post type-post sticky hentry">
+<!--
+  <div class="featured-post">
+    Featured post
+  </div>
+-->
+  <header class="entry-header">
+    <h1 class="entry-title">
+      {{ post.title }}
+    </h1>
+  </header><!-- .entry-header -->
+
+  <div class="entry-content">
+    <p>{{ post.description }}</p>
+    <a class="more-link" href="{{ post.url }}">{{ site.excerpt_link }}</a>
+  </div><!-- .entry-content -->
+</article><!-- #page -->
+{% endfor %}
+
+<div id="secondary" class="widget-area" role="complementary">
+  {% for post in site.posts limit: 2 offset: 1 %}
+    <article class="widget post type-post hentry">
+      <header class="entry-header">
+        <h1 class="entry-title">
+          {{ post.title }}
+        </h1>
+      </header><!-- .entry-header -->
+
+      <div class="entry-content">
+        <p>{{ post.description }}</p>
+        <a class="more-link" href="{{ post.url }}">{{ site.excerpt_link }}</a>
+      </div><!-- .entry-content -->
+    </article>
+  {% endfor %}
+</div>

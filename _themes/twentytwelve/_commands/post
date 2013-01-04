@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ..
+rm -rf stylesheets javascripts _tmp

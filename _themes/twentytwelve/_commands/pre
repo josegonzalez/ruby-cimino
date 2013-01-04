@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd ..
+mkdir -p stylesheets javascripts _tmp
+cat _stylesheets/style.css | cleancss -o stylesheets/style.css
+cat _javascripts/jquery.min.js _javascripts/navigation.js > _tmp/style.js
+cat _javascripts/html5.js > javascripts/html5.js
+uglifyjs -nc _tmp/style.js > javascripts/style.js

@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<title>{{ page.title }}</title>
+		<link rel="profile" href="http://gmpg.org/xfn/11">
+		<!--[if lt IE 9]>
+		<script src="/javascripts/html5.js" type="text/javascript"></script>
+		<![endif]-->
+		<meta name="robots" content="all" />
+		<meta name="robots" content="index, follow" />
+		<meta name="revisit-after" content="7 days" />
+		<meta name="version" content="1.0" />
+
+		<meta name="description" content="{{ page.description }}" />
+		<meta name="keywords" content="{% for tag in page.tags %}{{ tag | replace:' ', '-' | downcase }}{% if forloop.last == false %}, {%endif %}{% endfor %}" />
+
+		<link rel="alternate" type="application/rss+xml" title="{{ page.title }} » Feed" href="/atom.xml">
+		<link rel="stylesheet" id="twentytwelve-fonts-css" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&amp;subset=latin,latin-ext" type="text/css" media="all">
+		<link rel="stylesheet" id="twentytwelve-style-css" href="/stylesheets/style.css" type="text/css" media="all">
+		<!--[if lt IE 9]>
+			<link rel='stylesheet' id='twentytwelve-ie-css'  href='/stylesheets/ie.css' type='text/css' media='all' />
+		<![endif]-->
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		{% if site.ga_tracking_id %}
+			<script type="text/javascript">
+				var _gaq = _gaq || [];
+				_gaq.push(['_setAccount', '{{ site.ga_tracking_id }}']);
+				_gaq.push(['_trackPageview']);
+			</script>
+		{% endif %}
+	</head>
+
+	<body class="home custom-font-enabled {{ page.body }} {{ page.page_id }}">
+		<div id="page" class="hfeed site">
+			<header id="masthead" class="site-header" role="banner">
+				<hgroup>
+					<h1 class="site-title"><a href="/" title="{{ site.title }}" rel="home">{{ site.title }}</a></h1>
+					{% if site.description %}<h2 class="site-description">{{ site.description }}</h2>{% endif %}
+				</hgroup>
+
+				<nav id="site-navigation" class="main-navigation" role="navigation">
+					<h3 class="menu-toggle">Menu</h3>
+					<a class="assistive-text" href="#content" title="Skip to content">Skip to content</a>
+					<div class="nav-menu">
+						<ul class="nav-menu">
+							{% for nav_item in site.navigation %}
+								<li class="{% if page.is_nav == nav_item.link %}current_page_item{% else %}page_item{% endif %}"><a href="{{ nav_item.link }}">{{ nav_item.title }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				</nav><!-- #site-navigation -->
+			</header><!-- #masthead -->
+
+			<div id="main" class="wrapper">
+				<div id="primary" class="site-content">
+					<div id="content" role="main">
+						{{ content }}
+					</div><!-- #content -->
+				</div><!-- #primary -->
+				<div id="secondary" class="widget-area" role="complementary">
+<!--
+ 					<aside id="search-3" class="widget widget_search">
+						<form role="search" method="get" id="searchform" action="http://wp-themes.com/">
+							<div>
+								<label class="screen-reader-text" for="s">Search for:</label>
+								<input type="text" value="" name="s" id="s">
+								<input type="submit" id="searchsubmit" value="Search">
+							</div>
+						</form>
+					</aside>
+-->
+
+<!--
+ 					<aside id="recent-comments-3" class="widget widget_recent_comments">
+						<h3 class="widget-title">Recent Comments</h3>
+						<ul id="recentcomments">
+							<li class="recentcomments"><a href="http://josephscott.org/" rel="external nofollow" class="url">Joseph Scott</a> on <a href="http://wp-themes.com/?p=1&amp;cpage=1#comment-509">Hello world!</a></li>
+							<li class="recentcomments"><a href="http://joseph.randomnetworks.com/" rel="external nofollow" class="url">Joseph Scott</a> on <a href="http://wp-themes.com/?p=8&amp;cpage=1#comment-2">HTML</a></li>
+							<li class="recentcomments"><a href="http://wordpress.org/" rel="external nofollow" class="url">Mr WordPress</a> on <a href="http://wp-themes.com/?p=1&amp;cpage=1#comment-1">Hello world!</a></li>
+						</ul>
+					</aside>
+-->
+
+ 					<aside id="archives-3" class="widget widget_archive">
+						<h3 class="widget-title">Archives</h3>
+						<ul>
+							{% for y in site.iterable.collation %}
+								{% for m in y[1] %}
+						  		<li>
+						  			<a href="/{{ y[0] }}/{{ m[0] | padded_month }}/" title="{{ m[0] | date_to_month }} {{ y[0] }}">
+						  				{{ m[0] | date_to_month }} {{ y[0] }}
+						  			</a>
+						  		</li>
+					  		{% endfor %}
+					  	{% endfor %}
+						</ul>
+					</aside>
+
+					<aside id="categories-3" class="widget widget_categories">
+						<h3 class="widget-title">Categories</h3>
+						<ul>
+							{% for topic in site.iterable.categories %}
+								<li class="cat-item"><a href="/categories/{{ topic.name | replace:' ', '-' | downcase }}"title="View all posts filed under {{ topic.name }}">{{ topic.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</aside>
+
+					<aside id="recent-posts-3" class="widget widget_recent_entries">
+						<h3 class="widget-title">Recent Posts</h3>
+						<ul>
+							{% for post in site.posts limit: 5 %}
+								<li><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+							{% endfor %}
+						</ul>
+					</aside>
+
+				</div><!-- #secondary -->
+			</div><!-- #main .wrapper -->
+			<footer id="colophon" role="contentinfo">
+				<div class="site-info">
+					<a href="http://github.com/josegonzalez/cimino" title="Semantic Personal Publishing Platform">Proudly powered by Cimino</a>
+				</div><!-- .site-info -->
+			</footer><!-- #colophon -->
+		</div><!-- #page -->
+
+		<script type="text/javascript" src="/javascripts/style.js"></script>
+		<script type="text/javascript">
+			{% if site.disqus_shortname %}
+			if ($('#disqus_thread').length) {
+				var disqus_shortname  = '{{ site.disqus_shortname }}';
+				var disqus_identifier = '{{ page.url }}';
+				var disqus_url        = '{{ site.url }}{{ page.url }}';
+				var disqus_title      = '{{ page.title }}';
+
+				(function() {
+					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = 'http://' + '{{ site.disqus_shortname }}' + '.disqus.com/embed.js';
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+
+					var commentCount = setInterval(function() {
+						if ($('#dsq-num-posts').length) {
+							$('.responses-number').html($('#dsq-num-posts').html());
+							clearInterval(commentCount);
+						}
+					}, 1000);
+				})();
+			}
+			{% endif %}
+			{% if site.ga_tracking_id %}
+				(function() {
+					var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+					ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+				})();
+			{% endif %}
+		</script>
+		<img id="hzDownscaled" style="position: absolute; top: -10000px;">
+	</body>
+</html>
