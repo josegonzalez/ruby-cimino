@@ -2,10 +2,10 @@
 # Source: God Knows where
 # Description: Allows embedding images in your posts, pre-processed by rmagick
 
-module Jekyll
+require 'rubygems'
+require 'RMagick'
 
-  require 'rubygems'
-  require 'RMagick'
+module Jekyll
 
   ATTRIBUTES = %w(max_width max_height)
 
