@@ -2,9 +2,13 @@
 # Original: https://github.com/rfelix/my_jekyll_extensions/blob/master/tag_category_iterator/tag_category_iterator.rb
 # Description: Add an iterator for posts into the categories and tags
 
+require File.dirname(__FILE__) + '/../_extensions/post_collation'
+
 module Jekyll
 
   class Site
+    include PostCollation
+
     alias_method :iterator_site_payload, :site_payload
 
     # Constuct an array of hashes that will allow the user, using Liquid, to
@@ -44,7 +48,8 @@ module Jekyll
 
       payload['site']['iterable'] = {
         'categories'  => make_iterable(self.categories, :index => 'name', :items => 'posts'),
-        'tags'        => make_iterable(self.tags, :index => 'name', :items => 'posts')
+        'tags'        => make_iterable(self.tags, :index => 'name', :items => 'posts'),
+        'collation'   => collate(self.posts)
       }
       @payload = payload
       @payload
