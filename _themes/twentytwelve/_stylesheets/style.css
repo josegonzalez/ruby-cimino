@@ -1028,20 +1028,30 @@ article.format-aside h1 {
   margin-bottom: 24px;
   margin-bottom: 1.714285714rem;
 }
-article.format-aside h1 a {
+blockquote .quote-by {
+  display: block;
+}
+blockquote .quote-by:before {
+  content: ' - ';
+}
+article.format-aside h1 a,
+blockquote .quote-by {
   text-decoration: none;
   color: #4d525a;
 }
-article.format-aside h1 a:hover {
+article.format-aside h1 a:hover,
+blockquote .quote-by:hover {
   color: #2e3542;
 }
-article.format-aside .aside {
+article.format-aside .aside,
+blockquote {
   padding: 24px 24px 0;
   padding: 1.714285714rem;
   background: #d2e0f9;
   border-left: 22px solid #a8bfe8;
 }
-article.format-aside p {
+article.format-aside p,
+blockquote p {
   font-size: 13px;
   font-size: 0.928571429rem;
   line-height: 1.846153846;
