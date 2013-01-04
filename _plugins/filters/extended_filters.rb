@@ -17,6 +17,10 @@ module Liquid
       Date::ABBR_MONTHNAMES[input]
     end
 
+    def padded_month(input)
+      input.to_s.rjust(2, '0')
+    end
+
     def date_to_utc(input)
       input.getutc
     end
