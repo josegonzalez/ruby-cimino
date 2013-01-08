@@ -41,12 +41,16 @@
 		{% endif %}
 	</head>
 
-	<body class="home custom-font-enabled {{ page.body }} {{ page.page_id }}">
-		<div class="hfeed site">
+	<body class="home {{ page.body }} {{ page.page_id }}">
+		<div class="site">
 			<header class="site-header" role="banner">
 				<hgroup>
-					<h1 class="site-title"><a href="/" title="{{ site.title }}" rel="home">{{ site.title }}</a></h1>
-					{% if site.description %}<h2 class="site-description">{{ site.description }}</h2>{% endif %}
+					<h1 class="site-title">
+						<a href="/" title="{{ site.title }}" rel="home">{{ site.title }}</a>
+					</h1>
+					{% if site.description %}
+						<h2 class="site-description">{{ site.description }}</h2>
+					{% endif %}
 				</hgroup>
 
 				<nav class="main-navigation" role="navigation">

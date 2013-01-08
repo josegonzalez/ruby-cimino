@@ -1,26 +1,6 @@
 ---
 layout: default
 body: full-width template-front-page
+comments: false
 ---
-<article class="type-page">
-	<header class="entry-header">
-		<h1 class="entry-title">
-			{{ page.title }}
-		</h1>
-	</header>
-  <header class="entry-content">
-    <h2>{{ page.lead }}</h2>
-  </header>
-
-	<div class="entry-content">
-    {% if page.image %}
-    <div class="post-image">
-      <div>
-        <img src="{{ page.image }}" >
-      </div>
-      {% if page.subtitle %}<span>{{ page.subtitle }}</span>{% endif %}
-    </div>
-    {% endif %}
-		{{ content }}
-	</div>
-</article>
+{% include post.html %}

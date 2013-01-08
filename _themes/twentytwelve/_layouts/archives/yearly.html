@@ -1,31 +1,24 @@
 ---
 layout: default
 body: full-width template-front-page
+comments: false
 ---
-<article class="type-page">
-  <header class="entry-header">
-    <h1 class="entry-title">
-      {{ page.year }}
-    </h1>
-  </header>
-  <header class="entry-content">
-    <h2>Posts from the year {{ page.year }}</h2>
-  </header>
-
-  <div class="entry-content">
-  	{% for m in (1..12) reversed %}
-			{% if page.collated_posts[page.year][m] %}
-				<h4>{{ m | date_to_month }}</h4>
-				<ul>
-				{% for d in (1..31) reversed %}
-					{% if page.collated_posts[page.year][m][d] %}
-						{% for p in page.collated_posts[page.year][m][d] reversed %}
-							<li><strong>{{ p.date | date: "%d" }}</strong> <a href='{{ p.url }}'>{{ p.title }}</a></li>
-						{% endfor %}
-					{% endif %}
-				{% endfor %}
-				</ul>
-			{% endif %}
-		{% endfor %}
-  </div>
-</article>
+{% capture title %}{{ page.year }}{% endcapture %}
+{% capture lead %}Posts from the year {{ page.year }}{% endcapture %}
+{% capture content %}
+  {% for m in (1..12) reversed %}
+    {% if page.collated_posts[page.year][m] %}
+      <h4>{{ m | date_to_month }}</h4>
+      <ul>
+      {% for d in (1..31) reversed %}
+        {% if page.collated_posts[page.year][m][d] %}
+          {% for p in page.collated_posts[page.year][m][d] reversed %}
+            <li><strong>{{ p.date | date: "%d" }}</strong> <a href='{{ p.url }}'>{{ p.title }}</a></li>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+{% include post.html %}

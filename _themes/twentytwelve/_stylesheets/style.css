@@ -1769,10 +1769,10 @@ hr {
   border: 1px solid #CCC;
   padding: 2px 4px;
 }
-.type-page {
+.type-post {
   position: relative;
 }
-.type-page .entry-content h2 {
+.type-post .entry-content h2 {
   margin: 38px 0;
   margin: 2.714286rem 0;
 }
@@ -1805,13 +1805,13 @@ hr {
   font-size: 11px;
   font-style: italic;
 }
-.about-page .type-page ul {
+.about-page .type-post ul {
   padding-bottom: 0;
 }
-.about-page .type-page p {
+.about-page .type-post p {
   padding-bottom: 0;
 }
-.about-page .type-page ul p {
+.about-page .type-post ul p {
   font-size: 14px;
   padding-right: 3em;
 }
@@ -1858,8 +1858,8 @@ hr {
     transform: rotate(180deg);
     filter: flipv; /*IE*/
   }
-  .about-page .type-page h2,
-  .about-page .type-page .lead {
+  .about-page .type-post h2,
+  .about-page .type-post .lead {
     text-align: center;
   }
 }
