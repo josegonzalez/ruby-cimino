@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<article class="post type-post hentry">
+<article class="type-post">
 	<header class="entry-header">
 		<h1 class="entry-title">
 			{{ page.title }}
@@ -10,17 +10,17 @@ layout: default
 			<a href="#comments" title="Comment on {{ page.title }}!">
 				<span class="responses-number">0</span> Replies
 			</a>
-		</div><!-- .comments-link -->
-	</header><!-- .entry-header -->
+		</div>
+	</header>
 
 	<div class="entry-content">
 		{{ content }}
-	</div><!-- .entry-content -->
+	</div>
 
 	<footer class="entry-meta">
 		This entry was posted in <a href="/categories/{{ page.category | replace:' ', '-' | downcase  }}" title="View all posts in {{ page.category }}" rel="category">{{ page.category }}</a> on <a href="http://wp-themes.com/?p=1" title="10:40 pm" rel="bookmark"><time class="entry-date" datetime="{{ page.date }}">{{ page.date | date_to_string }}</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/about/" title="See more info on {{ site.author }}" rel="author">{{ site.author }}</a></span></span>.
-	</footer><!-- .entry-meta -->
-</article><!-- #post -->
+	</footer>
+</article>
 
 {% if site.comments and page.comments %}
 	<div id="comments">

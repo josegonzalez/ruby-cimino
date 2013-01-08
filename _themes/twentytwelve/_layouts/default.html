@@ -42,14 +42,14 @@
 	</head>
 
 	<body class="home custom-font-enabled {{ page.body }} {{ page.page_id }}">
-		<div id="page" class="hfeed site">
-			<header id="masthead" class="site-header" role="banner">
+		<div class="hfeed site">
+			<header class="site-header" role="banner">
 				<hgroup>
 					<h1 class="site-title"><a href="/" title="{{ site.title }}" rel="home">{{ site.title }}</a></h1>
 					{% if site.description %}<h2 class="site-description">{{ site.description }}</h2>{% endif %}
 				</hgroup>
 
-				<nav id="site-navigation" class="main-navigation" role="navigation">
+				<nav class="main-navigation" role="navigation">
 					<h3 class="menu-toggle">Menu</h3>
 					<a class="assistive-text" href="#content" title="Skip to content">Skip to content</a>
 					<div class="nav-menu">
@@ -62,14 +62,14 @@
 				</nav>
 			</header>
 
-			<div id="main" class="wrapper">
-				<div id="primary" class="site-content">
-					<div id="content" role="main">
+			<div class="wrapper">
+				<div class="site-content">
+					<div role="main">
 						{{ content }}
 					</div>
 				</div>
-				<div id="secondary" class="widget-area" role="complementary">
- 					<aside id="archives-3" class="widget widget_archive">
+				<div class="widget-area" role="complementary">
+ 					<aside class="widget widget_archive">
 						<h3 class="widget-title">Archives</h3>
 						<ul>
 							{% for y in site.iterable.collation %}
@@ -84,7 +84,7 @@
 						</ul>
 					</aside>
 
-					<aside id="categories-3" class="widget widget_categories">
+					<aside class="widget widget_categories">
 						<h3 class="widget-title">Categories</h3>
 						<ul>
 							{% for topic in site.iterable.categories %}
@@ -93,7 +93,7 @@
 						</ul>
 					</aside>
 
-					<aside id="recent-posts-3" class="widget widget_recent_entries">
+					<aside class="widget widget_recent_entries">
 						<h3 class="widget-title">Recent Posts</h3>
 						<ul>
 							{% for post in site.posts limit: 5 %}
@@ -104,7 +104,7 @@
 
 				</div>
 			</div>
-			<footer id="colophon" role="contentinfo">
+			<footer class="colophon" role="contentinfo">
 				<div class="site-info">
 					<a href="http://github.com/josegonzalez/cimino" title="Semantic Personal Publishing Platform">Proudly powered by Cimino</a>
 				</div>

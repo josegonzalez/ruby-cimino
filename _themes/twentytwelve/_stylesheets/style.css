@@ -1670,7 +1670,7 @@ img#wpstats {
     color: #000;
   }
   .author-avatar,
-  #colophon,
+  .colophon,
   #respond,
   .commentlist .comment-edit-link,
   .commentlist .reply,
@@ -1805,13 +1805,13 @@ hr {
   font-size: 11px;
   font-style: italic;
 }
-.about-page .post ul {
+.about-page .type-page ul {
   padding-bottom: 0;
 }
-.about-page .post p {
+.about-page .type-page p {
   padding-bottom: 0;
 }
-.about-page .post ul p {
+.about-page .type-page ul p {
   font-size: 14px;
   padding-right: 3em;
 }
@@ -1858,8 +1858,8 @@ hr {
     transform: rotate(180deg);
     filter: flipv; /*IE*/
   }
-  .about-page .post h2,
-  .about-page .post .lead {
+  .about-page .type-page h2,
+  .about-page .type-page .lead {
     text-align: center;
   }
 }

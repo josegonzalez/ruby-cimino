@@ -3,12 +3,12 @@ layout: default
 title: Categories
 is_nav: '/categories/'
 ---
-<article class="page type-page hentry">
+<article class="type-page">
   <header class="entry-header">
     <h1 class="entry-title">
       {{ page.title }}
     </h1>
-  </header><!-- .entry-header -->
+  </header>
   <div class="entry-content">
     {% for category in page.categories %}
       <h4><a href="/categories/{{ category | replace:' ', '-' | downcase }}" name="{{ category | replace:' ','-' | downcase }}">{{ category }}</a></h4>
@@ -18,5 +18,5 @@ is_nav: '/categories/'
         {% endfor %}
       </ul>
     {% endfor %}
-  </div><!-- .entry-content -->
-</article><!-- #page -->
+  </div>
+</article>
