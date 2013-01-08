@@ -25,7 +25,7 @@
 
 require 'inflection'
 
-if ENV.key?('JEKYLL_THEME') && ENV['JEKYLL_THEME'] =~ /[\w_-]+/i
+if ENV.key?('JEKYLL_THEME') && ENV['JEKYLL_THEME'] =~ /[\w-]+/i
   OVERRIDE_THEME = ENV['JEKYLL_THEME']
 else
   OVERRIDE_THEME = nil
@@ -56,12 +56,12 @@ module Jekyll
 
       # Load theme from cimino base if possible
       # Then override with source theme
-      [ '..', '' ].each do |base|
+      [ '..', '.' ].each do |base|
         recursive_read_layouts(File.join(base, '_themes', theme, dir))
       end
 
       ## Load the plugins from your themes where necessary
-      [ '', '..' ].each do |base|
+      [ '.', '..' ].each do |base|
         read_theme_plugins(File.join(base, '_themes', theme))
       end
     end
@@ -261,10 +261,10 @@ module Jekyll
       theme = 'classic'
       theme = site.config['theme'] if site.config.key?('theme')
       theme = OVERRIDE_THEME unless OVERRIDE_THEME.nil?
-      [ '', '..' ].each do |dir|
+      [ '.', '..' ].each do |dir|
         includes_dir = File.join(site.source, dir, '_themes', theme, '_includes')
-
-        next if File.symlink?(includes_dir)
+        includes_dir = File.expand_path(includes_dir)
+        next if File.symlink?(includes_dir) or !File.exists?(includes_dir)
 
         Dir.chdir(includes_dir) do
           choices = Dir['**/*'].reject { |x| File.symlink?(x) }
