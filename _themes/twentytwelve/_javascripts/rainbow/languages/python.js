@@ -2,17 +2,9 @@
  * Python patterns
  *
  * @author Craig Campbell
- * @version 1.0.5
+ * @version 1.0.7
  */
 Rainbow.extend('python', [
-    /**
-     * Python doesn't have constants so we should reset this pattern
-     */
-    {
-        'name': 'variable',
-        'pattern': /\b[A-Z0-9_]{2,}\b/g
-    },
-
     /**
      * don't highlight self as a keyword
      */
@@ -87,6 +79,6 @@ Rainbow.extend('python', [
     },
     {
         'name': 'comment.docstring',
-        'pattern': /('{3}|"{3})[\s\S]*\1/gm
+        'pattern': /('{3}|"{3})[\s\S]*?\1/gm
     }
 ]);
