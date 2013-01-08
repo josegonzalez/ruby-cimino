@@ -29,16 +29,14 @@ pre.rainbow-code code {
 }
 
 pre.rainbow-code, pre.rainbow-code code {
-    font-family: 'Bitstream Vera Sans Mono', Courier, monospace;
     color: #333;
     background: #f8f8f8;
+    font-family: 'Bitstream Vera Sans Mono', Courier, monospace;
+    font-size: 13px;
+    word-wrap: normal;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-}
-
-pre.rainbow-code, pre.rainbow-code code {
-    font-size: 13px;
 }
 
 pre.rainbow-code .comment {

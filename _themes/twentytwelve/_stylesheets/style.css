@@ -1741,6 +1741,7 @@ img#wpstats {
 
 ::-webkit-scrollbar {
   -webkit-appearance: none;
+  height: 9px;
   width: 9px;
 }
 ::-webkit-scrollbar-track  {
@@ -1774,6 +1775,9 @@ hr {
 .type-page .entry-content h2 {
   margin: 38px 0;
   margin: 2.714286rem 0;
+}
+.entry-content .gist table {
+  margin-bottom: 0;
 }
 .post-preamble {
   border-bottom: 1px solid #ccc;
