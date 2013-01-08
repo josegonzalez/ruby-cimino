@@ -67,7 +67,6 @@ GEM
     rb-inotify (0.8.8)
       ffi (>= 0.5.0)
     redcarpet (1.17.2)
-    rmagick (2.13.1)
     rubypants (0.2.0)
     rubypython (0.5.3)
       blankslate (>= 2.1.2.3)
@@ -109,7 +108,6 @@ DEPENDENCIES
   pygments.rb
   rake
   redcarpet (~> 1.17.2)
-  rmagick
   rubypants
   sass
   serve

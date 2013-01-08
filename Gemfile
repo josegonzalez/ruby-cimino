@@ -21,7 +21,6 @@ gem "inflection"
 gem "stringex"
 
 # Tag requirements
-gem "rmagick"
 gem "rubypants"
 
 # Utilities requirements

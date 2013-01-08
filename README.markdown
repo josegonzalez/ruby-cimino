@@ -127,7 +127,6 @@ For the time being, these converters do **NOT** work on anything in `_layouts`. 
 
 - `backtick`: Allow placing codeblocks within three ```, github-style
 - `highlight`: Write highlights with semantic HTML5 <figure> and <figcaption> elements and optional syntax highlighting — all with a simple, intuitive interface.
-- `image`: Allows embedding images in your posts, pre-processed by rmagick
 - `quote`: Allows the usage of blockquotes with attribution within your application by doing:
 
         {% blockquote John Hancock %}
