@@ -1,0 +1,45 @@
+---
+layout: nil
+---
+/* TEAM */
+	Author: {{ site.author }}
+	Site: {{ site.url }}{% if site.github_user %}
+	Github: {{ site.github_user }}{% endif %}{% if site.twitter_user %}
+	Twitter: @{{ site.twitter_user }}{% endif %}
+	From: {{ site.location }}
+
+/* THANKS */
+	Tom Preston-Werner: http://tom.preston-werner.com/
+	Jose Diaz-Gonzalez: http://josediazgonzalez.com/
+
+/* SITE */
+	Last update: {{ site.time | date: "%Y/%m/%d" }}
+	Standards: HTML5, CSS3
+  Components: Modernizr, jQuery
+  Software: Jekyll, Cimino,
+
+
+
+                               -o/-
+                               +oo//-
+                              :ooo+//:
+                             -ooooo///-
+                             /oooooo//:
+                            :ooooooo+//-
+                           -+oooooooo///-
+           -://////////////+oooooooooo++////////////::
+            :+ooooooooooooooooooooooooooooooooooooo+:::-
+              -/+ooooooooooooooooooooooooooooooo+/::////:-
+                -:+oooooooooooooooooooooooooooo/::///////:-
+                  --/+ooooooooooooooooooooo+::://////:-
+                     -:+ooooooooooooooooo+:://////:--
+                       /ooooooooooooooooo+//////:-
+                      -ooooooooooooooooooo////-
+                      /ooooooooo+oooooooooo//:
+                     :ooooooo+/::/+oooooooo+//-
+                    -oooooo/::///////+oooooo///-
+                    /ooo+::://////:---:/+oooo//:
+                   -o+/::///////:-      -:/+o+//-
+                   :-:///////:-            -:/://
+                     -////:-                 --//:
+                       --                       -:

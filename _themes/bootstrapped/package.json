@@ -1,0 +1,24 @@
+{
+    "name": "bootstrapped"
+  , "description": "custom theme based on the HTML, CSS, and JS toolkit from Twitter."
+  , "version": "2.0.4"
+  , "keywords": ["bootstrap", "css", "jekyll"]
+  , "homepage": "http://twitter.github.com/bootstrap/"
+  , "author": "Twitter Inc."
+  , "scripts": { "test": "make test" }
+  , "repository": {
+      "type": "git"
+    , "url": "https://github.com/twitter/bootstrap.git"
+  }
+  , "licenses": [
+    {
+        "type": "Apache-2.0"
+      , "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ]
+  , "devDependencies": {
+      "uglify-js": "1.2.6"
+    , "less": "1.3.0"
+    , "clean-css": "0.4.2"
+  }
+}

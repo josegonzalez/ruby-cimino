@@ -1,0 +1,15 @@
+---
+layout: default
+body: home
+---
+<div class="row">
+  <div class="span8">
+    {{ content }}
+  </div>
+
+  <div class="span4">
+    {% include intro.markdown %}
+    {% include sidebar_tabs.markdown %}
+    {% include portfolio.markdown %}
+  </div>
+</div>

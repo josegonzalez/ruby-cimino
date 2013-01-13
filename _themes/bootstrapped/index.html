@@ -1,0 +1,36 @@
+---
+layout: home
+title: Jose Diaz-Gonzalez
+---
+
+{% for post in site.posts limit: 1 %}
+<div class="row">
+  <div class="span8 content-padding">
+    <span class="small-title">Featured</span>
+    <h1 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h1>
+    <div class="post-meta">
+      <span class="date"><i class="icon-calendar"></i> {{ post.date | date_to_string }} | </span>
+      <span class="categories">
+        <i class="icon-folder-open"></i> Filed in: {% for tag in post.tags limit: 3 %}<a href="/tags/{{tag}}">{{ tag }}{% if forloop.last == false %}, {%endif %}</a> {% endfor %}
+      </span>
+    </div>
+    <p>{{ post.description }}</p>
+    <a class="more-link" href="{{ post.url }}">{{ site.excerpt_link }}</a>
+  </div>
+</div>
+{% endfor %}
+
+<div class="row">
+  {% for post in site.posts limit: 2 offset: 1 %}
+    <div class="span4">
+      <span class="small-title">{{ post.category }}</span>
+      <h3 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <div class="post-meta">
+        <span class="date"><i class="icon-calendar"></i> {{ post.date | date_to_string }}</span>
+      </div>
+      <p>{{ post.description }}</p>
+      <a class="more-link" href="{{ post.url }}">{{ site.excerpt_link }}</a>
+    </div>
+  {% endfor %}
+</div>
+{{ content }}

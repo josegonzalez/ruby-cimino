@@ -1,0 +1,86 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>{{ page.title }} - {{ site.title }}</title>
+  {% if site.description %}
+    <meta name="description" content="{{ site.description }}">
+  {% endif %}
+  <meta name="author" content="{{ site.author }}" />
+  <link rel="author" href="{{ site.url }}{{ site.baseurl }}humans.txt" />
+
+  <meta name="viewport" content="width=device-width">
+
+  {% if site.feedburner_name %}
+    <link href="http://feeds.feedburner.com/{{ site.feedburner_name }}" rel="alternate" title="{{ page.title }}" type="application/atom+xml">
+  {% else %}
+    <link href="{{ site.url }}{{ site.baseurl }}atom.xml" rel="alternate" title="{{ site.title }}" type="application/atom+xml" />
+  {% endif %}
+
+
+  <link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}stylesheets/style.css">
+
+  <script src="{{ site.url }}{{ site.baseurl }}javascripts/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+
+  <div id="header-container">
+    <header class="wrapper clearfix">
+      <h1 id="title">{{ site.title }}</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Archive</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </header>
+  </div>
+  <div id="main-container">
+    <div id="main" class="wrapper clearfix">
+      {{ content }}
+    </div> <!-- #main -->
+  </div> <!-- #main-container -->
+
+  <div id="footer-container">
+    <footer class="wrapper">
+      <h3>about</h3>
+      <ul>
+        <li class="contact"><address><span class="author fn n">{{ site.author }}</span> - <span class="fn email">{{ site.email }}</span></address></li>
+        {% if site.github_user %}
+          <li class="github"><a href="http://github.com/{{ site.github_user }}/" rel="me">github.com/{{ site.github_user }}</a></li>
+        {% endif %}
+        {% if site.twitter_user %}
+          <li class="twitter"><a href="http://twitter.com/{{ site.twitter_user }}/" rel="me">twitter.com/{{ site.twitter_user }}</a></li>
+        {% endif %}
+        {% if site.feedburner_name %}
+          <li class="rss"><a href="http://feeds.feedburner.com/{{ site.feedburner_name }}">Subscribe to RSS Feed</a></li>
+        {% else %}
+          <li class="rss"><a href="{{ site.url }}{{ site.baseurl }}atom.xml">Subscribe to RSS Feed</a></li>
+        {% endif %}
+      </ul>
+    </footer>
+  </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ site.url }}{{ site.baseurl }}javascripts/libs/jquery-1.7.2.min.js"><\/script>')</script>
+
+<script src="{{ site.url }}{{ site.baseurl }}javascripts/plugins.js"></script>
+<script src="{{ site.url }}{{ site.baseurl }}javascripts/script.js"></script>
+  {% if site.ga_tracking_id %}
+    <script>
+      var _gaq=[['_setAccount','{{ site.ga_tracking_id }}'],['_trackPageview']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+  {% endif %}
+
+</body>
+</html>

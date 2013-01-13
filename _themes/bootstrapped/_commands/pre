@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd ..
+mkdir -p stylesheets javascripts _tmp
+lessc ./_less/bootstrap.less > _tmp/bootstrap.css
+lessc ./_less/responsive.less > _tmp/responsive.css
+cat _tmp/bootstrap.css | cleancss -o stylesheets/bootstrap-min.css
+cat _tmp/responsive.css | cleancss -o stylesheets/responsive-min.css
+cat _js/jquery-1.7.2.min.js _js/bootstrap-transition.js _js/bootstrap-alert.js _js/bootstrap-button.js _js/bootstrap-carousel.js _js/bootstrap-collapse.js _js/bootstrap-dropdown.js _js/bootstrap-modal.js _js/bootstrap-tooltip.js _js/bootstrap-popover.js _js/bootstrap-scrollspy.js _js/bootstrap-tab.js _js/bootstrap-typeahead.js > _tmp/bootstrap.js
+uglifyjs -nc _tmp/bootstrap.js > javascripts/bootstrap.min.tmp.js
+rm -rf _tmp
