@@ -1,0 +1,77 @@
+<article class="type-post">
+  <header class="entry-header">
+    {% if page.title %}
+      <h1 class="entry-title">
+        {{ page.title }}
+      </h1>
+    {% endif %}
+    {% if title %}
+      <h1 class="entry-title">
+        {{ title }}
+      </h1>
+    {% endif %}
+
+    {% if site.comments and page.comments %}
+      <div class="comments-link">
+        <a href="#comments" title="Comment on {{ page.title }}!">
+          <span class="responses-number">0</span> Replies
+        </a>
+      </div>
+    {% endif %}
+  </header>
+
+  {% if page.lead %}
+    <header class="entry-content">
+      <h2>{{ page.lead }}</h2>
+    </header>
+  {% endif %}
+
+  {% if lead %}
+    <header class="entry-content">
+      <h2>{{ lead }}</h2>
+    </header>
+  {% endif %}
+
+  <div class="entry-content">
+    {% if page.image %}
+    <div class="post-image">
+      <div>
+        <img src="{{ page.image }}" >
+      </div>
+      {% if page.subtitle %}<span>{{ page.subtitle }}</span>{% endif %}
+    </div>
+    {% endif %}
+
+    {% if things %}
+      {% for thing in things %}
+        <h4>
+          <a href="/{{ type }}/{{ thing | replace:' ', '-' | downcase }}" name="{{ thing | replace:' ','-' | downcase }}">
+            {{ thing }}
+          </a>
+        </h4>
+        <ul>
+          {% for post in collection[thing] %}
+            <li><a href="{{post.url}}">{{ post.title }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    {% endif %}
+
+
+    {{ content }}
+  </div>
+
+  {% if page.category %}
+    <footer class="entry-meta">
+      This entry was posted in <a href="/categories/{{ page.category | replace:' ', '-' | downcase  }}" title="View all posts in {{ page.category }}" rel="category">{{ page.category }}</a> on <a href="http://wp-themes.com/?p=1" title="10:40 pm" rel="bookmark"><time class="entry-date" datetime="{{ page.date }}">{{ page.date | date_to_string }}</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/about/" title="See more info on {{ site.author }}" rel="author">{{ site.author }}</a></span></span>.
+    </footer>
+  {% endif %}
+</article>
+
+{% if site.comments and page.comments %}
+  <div id="comments">
+    <div id="disqus_thread" name="#comments"></div>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+{% endif %}
