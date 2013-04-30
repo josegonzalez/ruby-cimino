@@ -1,3 +1,6 @@
+# Title: Jekyll::Plugin Config
+# Description: Extends the Jekyll::Plugin class to add plugin-related configuration to our global _config.yml
+
 require 'inflection'
 
 module Jekyll

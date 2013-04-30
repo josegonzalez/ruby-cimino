@@ -149,17 +149,16 @@ Also adds support for pullquotes:
 # Todo
 
 - ~~Include plugins within themes~~
-- More themes
-- Add the ability to comment and share posts/pages
-- Cleanup plugin documentation
+- ~~More themes~~
+- ~~Add the ability to comment and share posts/pages~~
+- ~~Cleanup plugin documentation~~
 - Tests for plugins
 - ~~Add template for `_config.yml`~~
-- Split up Rakefile into separate tasks
-- Thor support
-- Include common deployment scenarios - Github, Heroku, Amazon, Rsync
+- ~~Split up Rakefile into separate tasks~~
+- Include common deployment scenarios - Github, Heroku, Amazon, ~~Rsync~~
 - Steal more stuff from Octopress and other distributions
-- Sleep
-- Unknown bug fixes
+- ~~Sleep~~ #willnotfix
+- ~~Unknown bug fixes~~
 
 # License
 

@@ -1,3 +1,6 @@
+# Title: Jekyll::Site Payload accessor
+# Description: Adds a method to allow us to set the site_payload as a class attribute
+
 module Jekyll
   class Site
     alias_method :accessor_site_payload, :site_payload

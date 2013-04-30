@@ -1,3 +1,6 @@
+# Title: PostCollation
+# Description: Module that adds a method to collate posts by date
+
 module PostCollation
   def collate(posts)
     collated_posts = {}

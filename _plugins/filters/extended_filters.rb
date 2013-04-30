@@ -1,5 +1,5 @@
 # Title: ExtendedFilters
-# Description: Some extra filters for jekyll
+# Description: Some extra filters for liquid
 
 require 'hpricot'
 require 'nokogiri'
