@@ -5,4 +5,4 @@ mkdir -p stylesheets javascripts _tmp
 cat _stylesheets/style.css _stylesheets/github.css | cleancss -o stylesheets/style.css
 cat _javascripts/jquery.min.js _javascripts/navigation.js _javascripts/rainbow/rainbow.js _javascripts/rainbow/languages/c.js _javascripts/rainbow/languages/css.js _javascripts/rainbow/languages/generic.js _javascripts/rainbow/languages/html.js _javascripts/rainbow/languages/javascript.js _javascripts/rainbow/languages/php.js _javascripts/rainbow/languages/python.js _javascripts/rainbow/languages/ruby.js _javascripts/rainbow/languages/shell.js > _tmp/style.js
 cat _javascripts/html5.js > javascripts/html5.js
-uglifyjs -nc _tmp/style.js > javascripts/style.js
+uglifyjs _tmp/style.js -c  > javascripts/style.js
