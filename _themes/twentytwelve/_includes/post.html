@@ -63,7 +63,7 @@
 
   {% if page.category %}
     <footer class="entry-meta">
-      This entry was posted in <a href="/categories/{{ page.category | replace:' ', '-' | downcase  }}" title="View all posts in {{ page.category }}" rel="category">{{ page.category }}</a> on <a href="http://wp-themes.com/?p=1" title="10:40 pm" rel="bookmark"><time class="entry-date" datetime="{{ page.date }}">{{ page.date | date_to_string }}</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/about/" title="See more info on {{ site.author }}" rel="author">{{ site.author }}</a></span></span>.
+      This entry was posted in <a href="/categories/{{ page.category | replace:' ', '-' | downcase  }}" title="View all posts in {{ page.category }}" rel="category">{{ page.category }}</a> on <a href="{{ site.url }}{{ page.url }}" title="10:40 pm" rel="bookmark"><time class="entry-date" datetime="{{ page.date }}">{{ page.date | date_to_string }}</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="/about/" title="See more info on {{ site.author }}" rel="author">{{ site.author }}</a></span></span>.
     </footer>
   {% endif %}
 </article>
