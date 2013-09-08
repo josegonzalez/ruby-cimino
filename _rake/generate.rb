@@ -43,8 +43,7 @@ task :generate do
 
   puts '* Generating Site with Jekyll'
   Dir.chdir(SOURCE_DIR) do
-    cmd = [ 'jekyll build' ]
-    cmd << "--url #{CONFIG['test_url']}" if ENV.key?('JEKYLL_TEST') && ENV['JEKYLL_TEST'] == '1'
+    cmd = [ 'jekyll build', '--trace' ]
     system cmd.join(' ')
   end
 
