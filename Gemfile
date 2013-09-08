@@ -2,12 +2,12 @@ source "https://rubygems.org"
 
 group :development do
   # Jekyll requirements
-  gem 'rake',         '~> 10.1.0'
-  gem "jekyll",       '~> 1.2.0'
-  gem 'gsl',          :git => 'https://github.com/romanbsd/rb-gsl.git'
+  gem "rake",         "~> 10.1.0"
+  gem "jekyll",       "~> 1.2.0"
+  gem "gsl",          :git => "https://github.com/romanbsd/rb-gsl.git"
 
   # Converter Requirements
-  gem "redcarpet",    '~> 2.2.2'
+  gem "redcarpet",    "~> 2.2.2"
   gem "coffee-script"
   gem "haml"
   gem "sass"
@@ -37,8 +37,8 @@ group :development do
   gem "eventmachine"
   gem "em-dir-watcher"
   gem "guard"
-  gem "serve"
+  gem "serve",         ">= 1.5"
   gem "tilt"
 end
 
-gem 'sinatra',         '~> 1.4.3'
+gem "sinatra",         "~> 1.4.3"

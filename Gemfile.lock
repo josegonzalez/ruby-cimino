@@ -124,7 +124,7 @@ DEPENDENCIES
   rouge
   rubypants
   sass
-  serve
+  serve (>= 1.5)
   sinatra (~> 1.4.3)
   stringex
   stylus
