@@ -128,13 +128,6 @@
 					var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 					dsq.src = 'http://' + '{{ site.disqus_shortname }}' + '.disqus.com/embed.js';
 					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-
-					var commentCount = setInterval(function() {
-						if ($('#dsq-num-posts').length) {
-							$('.responses-number').html($('#dsq-num-posts').html());
-							clearInterval(commentCount);
-						}
-					}, 1000);
 				})();
 			}
 			{% endif %}
