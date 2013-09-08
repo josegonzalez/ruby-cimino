@@ -6,7 +6,7 @@ GIT
       narray (>= 0.5.9)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     activesupport (3.2.14)
       i18n (~> 0.6, >= 0.6.4)
@@ -55,7 +55,7 @@ GEM
     maruku (0.6.1)
       syntax (>= 1.0.0)
     mini_portile (0.5.1)
-    multi_json (1.7.9)
+    multi_json (1.8.0)
     narray (0.6.0.8)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
