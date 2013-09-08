@@ -92,7 +92,7 @@
 						<h3 class="widget-title">Categories</h3>
 						<ul>
 							{% for topic in site.iterable.categories %}
-								<li class="cat-item"><a href="/categories/{{ topic.name | replace:' ', '-' | downcase }}"title="View all posts filed under {{ topic.name }}">{{ topic.name }}</a></li>
+								<li class="cat-item"><a href="/categories/{{ topic.name | replace:' ', '-' | downcase }}"title="View all posts filed under {{ topic.name | titleize }}">{{ topic.name | titleize }}</a></li>
 							{% endfor %}
 						</ul>
 					</aside>
