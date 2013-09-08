@@ -11,7 +11,7 @@ module Jekyll
 
     def render(context)
       output = super
-      source = '<pre class="rainbow-code"><code data-language="' + @lang + '">' + output.lstrip.rstrip + '</code></pre>'
+      source = '<pre class="rainbow-code"><code data-language="' + @lang + '">' + CGI::escapeHTML(output.lstrip.rstrip) + '</code></pre>'
       source
     end
   end
