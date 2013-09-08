@@ -46,7 +46,7 @@
       {% for thing in things %}
         <h4>
           <a href="/{{ type }}/{{ thing | replace:' ', '-' | downcase }}" name="{{ thing | replace:' ','-' | downcase }}">
-            {{ thing }}
+            {{ thing | titleize }}
           </a>
         </h4>
         <ul>
