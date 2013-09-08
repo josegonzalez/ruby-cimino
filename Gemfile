@@ -24,6 +24,7 @@ gem "stringex"
 gem "rubypants"
 
 # Utilities requirements
+gem "rouge"
 gem "coderay"
 gem "pygments.rb"
 # Note: ultraviolet is not included since it

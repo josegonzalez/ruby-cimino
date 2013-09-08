@@ -28,7 +28,7 @@ dirs = [ SOURCE_DIR ]
 dirs.each { |dir| Dir[File.join(dir, '_rake', "**/*.rb")].each { |f| require f } }
 
 # Ensure all directories exist
-[ '', 'pygments_code', 'stash' ].each do |dir|
+[ '', 'stash' ].each do |dir|
   FileUtils.mkdir_p(File.join(BASE_DIR, '_tmp', dir))
 end
 
