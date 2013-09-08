@@ -59,10 +59,8 @@ twitter_show:       true
 safe:               false
 # Enables or disables Jekyll from recreating the site when files are modified.
 regeneration:       true
-# Fires up a server that will host your _site directory
-server:             false
 # Changes the port that the Jekyll server will run on
-server_port:        4000
+port:               4000
 # Serve website from a given base URL
 baseurl:            /
 # Sets site.url, useful for environment switching
@@ -86,7 +84,12 @@ markdown:           redcarpet
 # Controls the URLs that posts are generated with.
 permalink:          /:year/:month/:day/:title/
 # A list of directories and files to exclude from the conversion
-exclude:            README.textile Rakefile Gemfile Gemfile.lock requirements.txt
+exclude:
+  - README.textile
+  - Rakefile
+  - Gemfile
+  - Gemfile.lock
+  - requirements.txt
 
 # ----------------------- #
 #         Rakefile        #

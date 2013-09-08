@@ -48,7 +48,7 @@ task :dev do
   require_config
 
   puts '* Running Jekyll with auto-generation and server'
-  Dir.chdir(SOURCE_DIR) { system "jekyll --auto --server --lsi" }
+  Dir.chdir(SOURCE_DIR) { system "jekyll serve --watch" }
 end
 
 desc 'Create and push a tag'
