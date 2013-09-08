@@ -17,7 +17,10 @@ module Jekyll
       self.content = @site.layouts[type].content
       self.data = @site.layouts[type].data
 
-      self.data['title'] = "#{config["title_prefix"]}#{page}"
+      page_title = page
+      page_title = page.gsub(/(\w+)/) {|s| s.capitalize} if config["titleize"]
+
+      self.data['title'] = "#{config["title_prefix"]}#{page_title}"
       self.data[config['page_type']] = page
       related(page, config) if config['related']
 
@@ -80,6 +83,7 @@ module Jekyll
           'page_title' => page_type.capitalize + ': ',
           'dir'        => ::Inflection.plural(page_type),
           'page_type'  => page_type,
+          'titleize'   => false,
         }){ |key, v1, v2| v1 }
 
         config[page_type] =  c

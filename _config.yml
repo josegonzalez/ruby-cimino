@@ -123,6 +123,7 @@ format:             markdown
 generators:
   generic_index:
     category:
+      titleize:     true
     tag:
       related:      true
 
