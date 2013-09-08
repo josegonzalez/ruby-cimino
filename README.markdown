@@ -9,7 +9,7 @@ Still pretty experimental. If something in this readme doesn't work as promised,
 
 # Requirements
 
-* Ruby 1.9.2. If it works in 1.8.7 or 1.9.3, thats cool.
+* Ruby 1.9.3.
 * Python 2.7 for syntax highlighting via Pygments. Unnecessary if using default coderay highlighter
 * Patience
 
@@ -17,7 +17,7 @@ Still pretty experimental. If something in this readme doesn't work as promised,
 
 ## Pre-installation
 
-- Install Ruby 1.9.2 via your favorite installation method. Included are `.rbenv-version` and `.rvmrc` files which may help speed up switching between Ruby versions.
+- Install Ruby 1.9.3 via your favorite installation method. Included are `.rbenv-version` and `.rvmrc` files which may help speed up switching between Ruby versions.
 - Install Python 2.7. This comes default on Ubuntu 11.10, and is easily installable on OS X. You'll also want pip to install Python requirements. Unnecessary if using default coderay highlighter.
 
 ## Cimino Installation
@@ -28,7 +28,7 @@ Still pretty experimental. If something in this readme doesn't work as promised,
 
 	# Install all of cimino's requirements
 	cd cimino
-    pip install -r requirements.txt # Unnecessary if using default coderay highlighter
+    pip install -r requirements.txt # Unnecessary if using default coderay/rainbow highlighter
     bundle install
 
     # Set cimino up the bomb
