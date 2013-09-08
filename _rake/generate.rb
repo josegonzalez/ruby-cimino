@@ -16,19 +16,32 @@ task :generate do
     puts '## Running in TEST mode'
   end
 
-  puts '## Move the stashed blog posts back to the posts directory'
-  FileUtils.mv Dir.glob('_tmp/stash/*.*'), File.join(SOURCE_DIR, '_posts')
+  if ENV.key?('JEKYLL_ISOLATE') && ENV['JEKYLL_ISOLATE'] == '1'
+    unless ARGV.length > 1
+      puts "USAGE: rake isolate 'the-post-title'"
+      exit(1)
+    end
+
+    puts '* Moving posts to stash dir'
+
+    Dir.glob(File.join(SOURCE_DIR, '_posts', '*.*')) do |post|
+      FileUtils.mv post, "_tmp/stash" unless post.include?(ARGV[1])
+    end
+  else
+    puts '* Move the stashed blog posts back to the posts directory'
+    FileUtils.mv Dir.glob('_tmp/stash/*.*'), File.join(SOURCE_DIR, '_posts')
+  end
 
   env_vars = {}
   [ 'theme' ].each { |k| env_vars[k] = ENV[k] if ENV.key?(k) }
   env_vars.map{ |k,v| ENV["JEKYLL_#{k.upcase}"] = v }
 
   if File.exists?(File.join(THEME_DIR, "_commands", "pre"))
-    puts '## Running pre-process command'
+    puts '* Running pre-process command'
     Dir.chdir(File.join(THEME_DIR, "_commands")) { system "./pre" }
   end
 
-  puts '## Generating Site with Jekyll'
+  puts '* Generating Site with Jekyll'
   Dir.chdir(SOURCE_DIR) do
     cmd = [ 'jekyll' ]
     cmd << "--no-lsi --url #{CONFIG['test_url']}" if ENV.key?('JEKYLL_TEST') && ENV['JEKYLL_TEST'] == '1'
@@ -36,9 +49,18 @@ task :generate do
   end
 
   if File.exists?(File.join(THEME_DIR, "_commands", "post"))
-    puts '## Running post-process command'
+    puts '* Running post-process command'
     Dir.chdir(File.join(THEME_DIR, "_commands")) { system "./post" }
   end
+
+  if ENV.key?('JEKYLL_ISOLATE') && ENV['JEKYLL_ISOLATE'] == '1'
+    puts '* Moving posts from _tmp/stash/ directory to _posts/ directory'
+
+    # Move the stashed blog posts back to the posts directory
+    FileUtils.mv Dir.glob("_tmp/stash/*.*"), File.join(SOURCE_DIR, '_posts')
+  end
+
+  exit(0) # Hack so that we don't have to worry about rake trying any funny business
 end
 
 desc "Move all stashed posts back into the posts directory, ready for site generation."
@@ -53,28 +75,8 @@ end
 # TODO: Figure out a better way to hack the exit process of Rakefiles
 desc "Generate a single, or set, of blog posts containing certain words in the filename"
 task :isolate, :filename do |t, args|
-  require_config
-
-  unless ARGV.length > 1
-    puts "USAGE: rake isolate 'the-post-title'"
-    exit(1)
-  end
-
-  puts '* Moving posts to stash dir'
-
-  Dir.glob(File.join(SOURCE_DIR, '_posts', '*.*')) do |post|
-    FileUtils.mv post, "_tmp/stash" unless post.include?(ARGV[1])
-  end
-
-  puts '* Regenerating blog'
-  Dir.chdir(SOURCE_DIR) { system "jekyll" }
-
-  puts '* Moving posts from _tmp/stash/ directory to _posts/ directory'
-
-  # Move the stashed blog posts back to the posts directory
-  FileUtils.mv Dir.glob("_tmp/stash/*.*"), File.join(SOURCE_DIR, '_posts')
-
-  exit(0) # Hack so that we don't have to worry about rake trying any funny business
+  ENV["JEKYLL_ISOLATE"] = '1'
+  Rake::Task['generate'].invoke
 end
 
 desc 'Test generation of jekyll site'
