@@ -130,6 +130,8 @@ module Jekyll
       base = File.join(self.source, dir)
       return if not File.exists?(base)
 
+      theme = false unless theme
+
       entries = Dir.chdir(base) { filter_entries(Dir['*']) }
 
       self.read_posts(dir)
@@ -205,23 +207,25 @@ module Jekyll
     #
     # Returns the destination file path String.
     def destination(dest)
-      # The dir must be corrected when using themes
-      dir = @theme ? @dir.split(@theme).last[1..-1] : @dir
+      dir = self.url.sub(/\/\//, '/')
+      if @theme
+        dir = self.url.split(@theme.sub(/[\.{2}\/]+/, '')).last[1..-1]
+      end
 
       # The url needs to be unescaped in order to preserve the correct
       # filename.
-      path = File.join(dest, dir, CGI.unescape(self.url))
+      path = File.join(dest, dir)
       path = File.join(path, "index.html") if self.url =~ /\/$/
       path
     end
 
     def to_liquid
       # The dir must be corrected when using themes
-      dir = @theme ? @dir.split(@theme).last[1..-1] : @dir
+      dir = @theme ? @dir.split(@theme.sub(/[\.{2}\/]+/, '')).last[1..-1] : @dir
       dir = "/#{dir}" if !dir.start_with?('/')
 
       self.data.deep_merge({
-        "url"        => File.join(dir, self.url),
+        "url"        => dir,
         "content"    => self.content })
     end
 
