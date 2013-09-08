@@ -42,13 +42,11 @@
 # </figure>
 #
 require File.dirname(__FILE__) + '/../utilities/highlight_code'
-require File.dirname(__FILE__) + '/../utilities/template_wrapper'
 
 module Jekyll
 
   class EnhancedHighlightBlock < Liquid::Block
     include HighlightCode
-    include TemplateWrapper
 
     CodeUrlTitle = /(\S[\S\s]*)\s+(https?:\/\/)(\S+)\s+(.+)/i
     CodeUrl = /(\S[\S\s]*)\s+(https?:\/\/)(\S+)/i
@@ -88,7 +86,7 @@ module Jekyll
       else
         source += "#{tableize_code(output.lstrip.rstrip.gsub(/</,'&lt;'))}</figure>"
       end
-      source = safe_wrap(source)
+
       source = @plugin_config['prefix'] + source if @plugin_config['prefix']
       source = source + @plugin_config['suffix'] if @plugin_config['suffix']
       source
