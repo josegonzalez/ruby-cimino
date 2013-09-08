@@ -59,8 +59,15 @@ module Liquid
   class Tag
     alias_method :original_render, :render
 
-    def render(context)
-      super
+    def self.disabled?(context, key)
+      return false unless context.registers[:site].config.key?('disabled_blocks')
+
+      disabled = context.registers[:site].config['disabled_blocks']
+      disabled = [disabled] if disabled.is_a?('String')
+      return disabled.member?(key)
+    end
+
+    def render_config(context)
       config = context.registers[:site].config
 
       klass = underscore(self.class).gsub('jekyll/', '')
@@ -71,14 +78,11 @@ module Liquid
       end
 
       @plugin_config ||= {}
+      @enabled = Liquid::Tag.disabled?(context, 'klass')
+    end
 
-      @enabled = true
-      if config.key?("disabled_tags")
-        disabled = config["disabled_tags"]
-        disabled = [disabled] if disabled.is_a?('String')
-        @enabled = false if disabled.member?(klass)
-      end
-
+    def render(context)
+      render_config(context)
       original_render(context)
     end
   end
@@ -87,23 +91,7 @@ module Liquid
     alias_method :original_render, :render
 
     def render(context)
-      config = context.registers[:site].config
-
-      klass = underscore(self.class).gsub('jekyll/', '')
-      ['_tag'].each {|n| klass = klass.gsub(n, '')}
-      if config.key?('tags') && config['tags'].key?(klass)
-        @plugin_config = config['tags'][klass]
-      end
-
-      @plugin_config ||= {}
-
-      @enabled = true
-      if config.key?("disabled_tags")
-        disabled = config["disabled_tags"]
-        disabled = [disabled] if disabled.is_a?('String')
-        @enabled = false if disabled.member?(klass)
-      end
-
+      render_config(context)
       original_render(context)
     end
   end

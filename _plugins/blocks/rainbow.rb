@@ -9,6 +9,8 @@ module Jekyll
     end
 
     def render(context)
+      return super if Liquid::Tag.disabled?(context, 'rainbow')
+
       output = super
       source = '<pre class="rainbow-code"><code data-language="' + @lang + '">' + CGI::escapeHTML(output.lstrip.rstrip) + '</code></pre>'
       source
@@ -16,11 +18,4 @@ module Jekyll
   end
 end
 
-config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))
-if !config.key?("disabled_blocks")
-  Liquid::Template.register_tag('rainbow', Jekyll::RainbowBlock)
-else
-  disabled = config["disabled_blocks"]
-  disabled = [disabled] if disabled.is_a?('String')
-  Liquid::Template.register_tag('rainbow', Jekyll::RainbowBlock) unless disabled.member?('rainbow')
-end
+Liquid::Template.register_tag('rainbow', Jekyll::RainbowBlock)

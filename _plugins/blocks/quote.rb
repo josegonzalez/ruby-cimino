@@ -39,6 +39,8 @@ module Jekyll
     end
 
     def render(context)
+      return super if Liquid::Tag.disabled?(context, 'pullquote')
+
       output = super
       parts = ['<blockquote' + @class + '>', output]
       parts << '<strong class="quote-by">' + @by + '</strong>' if @by
@@ -73,19 +75,13 @@ module Jekyll
   #
   class PullquoteBlock < BlockquoteBlock
     def render(context)
+      return super if Liquid::Tag.disabled?(context, 'blockquote')
+
       @class = ' class="pullquote"'
       super(context)
     end
   end
 end
 
-config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))
-if !config.key?("disabled_blocks")
-  Liquid::Template.register_tag('blockquote', Jekyll::BlockquoteBlock)
-  Liquid::Template.register_tag('pullquote', Jekyll::PullquoteBlock)
-else
-  disabled = config["disabled_blocks"]
-  disabled = [disabled] if disabled.is_a?('String')
-  Liquid::Template.register_tag('blockquote', Jekyll::BlockquoteBlock) unless disabled.member?('blockquote')
-  Liquid::Template.register_tag('pullquote', Jekyll::PullquoteBlock) unless disabled.member?('pullquote')
-end
+Liquid::Template.register_tag('blockquote', Jekyll::BlockquoteBlock)
+Liquid::Template.register_tag('pullquote', Jekyll::PullquoteBlock)

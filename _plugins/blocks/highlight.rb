@@ -77,6 +77,8 @@ module Jekyll
     end
 
     def render(context)
+      return super if Liquid::Tag.disabled?(context, 'highlight')
+
       output = super
       source = "<figure class='code'>"
       source += @caption if @caption
@@ -93,11 +95,4 @@ module Jekyll
   end
 end
 
-config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))
-if !config.key?("disabled_blocks")
-  Liquid::Template.register_tag('highlight', Jekyll::EnhancedHighlightBlock)
-else
-  disabled = config["disabled_blocks"]
-  disabled = [disabled] if disabled.is_a?('String')
-  Liquid::Template.register_tag('highlight', Jekyll::EnhancedHighlightBlock) unless disabled.member?('highlight')
-end
+Liquid::Template.register_tag('ditaa', Jekyll::EnhancedHighlightBlock)
