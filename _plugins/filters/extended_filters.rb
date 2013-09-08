@@ -6,9 +6,7 @@ require 'nokogiri'
 require 'multi_json'
 
 module Liquid
-
   module ExtendedFilters
-
     def tokenize(input, second)
       stop_words = [
         "a", "about", "above", "after", "again", "against", "all", "am", "an",
@@ -83,11 +81,9 @@ module Liquid
     def markdownify(input)
       Markdown.new(input)
     end
-
   end
 
   module NokogiriTruncator
-
     module NodeWithChildren
       def truncate(max_length)
         return self if inner_text.length <= max_length
@@ -108,8 +104,8 @@ module Liquid
         Nokogiri::XML::Text.new(content[0..(max_length - 1)], parent)
       end
     end
-
   end
+
   Nokogiri::HTML::DocumentFragment.send(:include, NokogiriTruncator::NodeWithChildren)
   Nokogiri::XML::Element.send(:include, NokogiriTruncator::NodeWithChildren)
   Nokogiri::XML::Text.send(:include, NokogiriTruncator::TextNode)

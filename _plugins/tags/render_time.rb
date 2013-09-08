@@ -5,7 +5,6 @@
 require 'yaml'
 
 module Jekyll
-
   class RenderTimeTag < Liquid::Tag
     def initialize(tag_name, text, tokens)
       super
@@ -16,7 +15,6 @@ module Jekyll
       "#{@text} #{Time.now}"
     end
   end
-
 end
 
 config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))

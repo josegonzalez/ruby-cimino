@@ -5,9 +5,7 @@
 require File.dirname(__FILE__) + '/../_extensions/post_collation'
 
 module Jekyll
-
   class ArchiveIndex < Page
-
     include PostCollation
 
     def initialize(site, base, dir, type)
@@ -33,7 +31,6 @@ module Jekyll
   end
 
   class ArchiveGenerator < Generator
-
     include PostCollation
 
     safe true
@@ -60,7 +57,5 @@ module Jekyll
       archive.write(site.dest)
       site.static_files << archive
     end
-
   end
-
 end

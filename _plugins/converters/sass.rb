@@ -5,7 +5,6 @@
 require 'sass'
 
 module Jekyll
-
   class SassConverter < Converter
     safe true
     priority :low
@@ -33,5 +32,4 @@ module Jekyll
       engine.render
     end
   end
-
 end

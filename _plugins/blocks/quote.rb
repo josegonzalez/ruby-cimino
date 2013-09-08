@@ -3,7 +3,6 @@
 # Description: Blockquote and Pullquote tags
 
 module Jekyll
-
   # Outputs a string with a given attribution as a quote
   #
   #   {% blockquote John Paul Jones %}
@@ -78,7 +77,6 @@ module Jekyll
       super(context)
     end
   end
-
 end
 
 config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))

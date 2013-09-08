@@ -44,7 +44,6 @@
 require File.dirname(__FILE__) + '/../utilities/highlight_code'
 
 module Jekyll
-
   class EnhancedHighlightBlock < Liquid::Block
     include HighlightCode
 
@@ -92,7 +91,6 @@ module Jekyll
       source
     end
   end
-
 end
 
 config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))

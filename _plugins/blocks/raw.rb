@@ -3,7 +3,6 @@
 # Description: Raw tag for jekyll. Keeps liquid from parsing text betweeen {% raw %} and {% endraw %}
 
 module Jekyll
-
   class RawBlock < Liquid::Block
     def parse(tokens)
       @nodelist ||= []
@@ -20,7 +19,6 @@ module Jekyll
       end
     end
   end
-
 end
 
 config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))

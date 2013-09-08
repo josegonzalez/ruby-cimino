@@ -4,7 +4,6 @@
 require 'pathname'
 
 module Jekyll
-
   class SearchIndex < Page
     def initialize(site, base, dir, type)
       @site = site
@@ -40,5 +39,4 @@ module Jekyll
       site.static_files << atom
     end
   end
-
 end

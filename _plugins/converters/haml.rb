@@ -5,7 +5,6 @@
 require 'haml'
 
 module Jekyll
-
   class HamlConverter < Converter
     safe true
     priority :low
@@ -23,5 +22,4 @@ module Jekyll
       engine.render
     end
   end
-
 end

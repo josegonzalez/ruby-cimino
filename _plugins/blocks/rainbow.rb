@@ -2,7 +2,6 @@
 # Description: Wraps codeblocks in `rainbow` compliant html tags
 
 module Jekyll
-
   class RainbowBlock < Liquid::Block
     def initialize(tag_name, markup, tokens)
       @lang = (markup =~ /lang:(\w+)/i) ? $1 : "generic"
@@ -15,7 +14,6 @@ module Jekyll
       source
     end
   end
-
 end
 
 config = YAML.load_file(File.join(File.dirname(__FILE__), '..', '..', 'source', '_config.yml'))

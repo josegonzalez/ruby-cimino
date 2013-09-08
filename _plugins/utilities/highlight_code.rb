@@ -23,7 +23,6 @@ FileUtils.mkdir_p(CODE_CACHE_DIR)
 File.chmod(0777, CODE_CACHE_DIR)
 
 module HighlightCode
-
   def highlight(code, lang)
     lang = 'objc' if lang == 'm'
     lang = 'ruby' if lang == 'ru'
@@ -114,5 +113,4 @@ module HighlightCode
       $1
     end
   end
-
 end

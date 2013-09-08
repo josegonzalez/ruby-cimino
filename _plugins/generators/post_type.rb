@@ -7,7 +7,6 @@ require 'inflection'
 require 'stringex'
 
 module Jekyll
-
   class PostTypeIndex < Page
     attr_accessor :slug, :title
 
@@ -168,5 +167,4 @@ module Jekyll
       end
     end
   end
-
 end

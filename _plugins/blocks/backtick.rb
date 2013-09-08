@@ -6,7 +6,6 @@ require File.dirname(__FILE__) + '/../_extensions/post_filter'
 require 'rubypants'
 
 module Jekyll
-
   class BacktickCodeBlockFilter < PostFilter
     def initialize(config)
       @tag = "highlight"
@@ -26,5 +25,4 @@ module Jekyll
       post.content
     end
   end
-
 end

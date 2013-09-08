@@ -5,7 +5,6 @@
 require 'inflection'
 
 module Jekyll
-
   class GenericIndexIndex < Page
     def initialize(site, base, dir, type, page, config)
       @site = site
@@ -125,5 +124,4 @@ module Jekyll
       site.static_files << index
     end
   end
-
 end

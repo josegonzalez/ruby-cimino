@@ -5,7 +5,6 @@
 require 'pathname'
 
 module Jekyll
-
   class Page
     def subfolder
       @dir
@@ -73,5 +72,4 @@ module Jekyll
       site.static_files << sitemap
     end
   end
-
 end

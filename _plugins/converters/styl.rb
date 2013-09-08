@@ -8,7 +8,6 @@
 require 'stylus'
 
 module Jekyll
-
   class StylConverter < Converter
     safe true
 
@@ -41,5 +40,4 @@ module Jekyll
       end
     end
   end
-
 end

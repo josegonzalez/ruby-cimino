@@ -3,7 +3,6 @@
 # Description: Uppercase ALL the things
 
 module Jekyll
-
   class UpcaseConverter < Converter
     safe true
     priority :low
@@ -20,5 +19,4 @@ module Jekyll
       content.upcase
     end
   end
-
 end
