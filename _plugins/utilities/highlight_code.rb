@@ -85,7 +85,6 @@ module HighlightCode
     lexer = Rouge::Lexers::PHP.new if lang == 'php'
     lexer = Rouge::Lexers::Python.new if lang == 'python'
     lexer = Rouge::Lexers::SQL.new if lang == 'sql'
-    lexer = Rouge::Lexers::PHP.new if lang == 'php'
     formatter.format(lexer.lex(code))
   end
 
