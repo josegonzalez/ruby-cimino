@@ -9,6 +9,10 @@ module Liquid
 
   module ExtendedFilters
 
+    def titleize(input)
+      input.gsub(/(\w+)/) {|s| s.capitalize}
+    end
+
     def date_to_month(input)
       Date::MONTHNAMES[input]
     end
