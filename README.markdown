@@ -1,5 +1,8 @@
 # Cimino: Jekyll Blogging Like a Boss
 
+[![Dependency Status](https://gemnasium.com/josegonzalez/cimino.png)](https://gemnasium.com/josegonzalez/cimino)
+
+
 Cimino is a powerful, Jekyll-based distribution full of burrito-eating and badassery. It combines some of the most useful plugins and contributions from the Jekyll community with some ridiculous ninja-hacks to turn Jekyll into an easy to use and easy to extend blogging platform. Because we all love platforms.
 
 Still pretty experimental. If something in this readme doesn't work as promised, oops?
