@@ -208,9 +208,7 @@ module Jekyll
     # Returns the destination file path String.
     def destination(dest)
       dir = self.url.sub(/\/\//, '/')
-      if @theme
-        dir = self.url.split(@theme.sub(/[\.{2}\/]+/, '')).last[1..-1]
-      end
+      dir = self.url.split(@theme.sub(/[\.{2}\/]+/, '')).last[1..-1] if @theme
 
       # The url needs to be unescaped in order to preserve the correct
       # filename.
@@ -220,9 +218,9 @@ module Jekyll
     end
 
     def to_liquid
-      # The dir must be corrected when using themes
-      dir = @theme ? @dir.split(@theme.sub(/[\.{2}\/]+/, '')).last[1..-1] : @dir
-      dir = "/#{dir}" if !dir.start_with?('/')
+      dir = self.url.sub(/\/\//, '/')
+      dir = self.url.split(@theme.sub(/[\.{2}\/]+/, '')).last[1..-1] if @theme
+      dir = "/#{dir}" if dir[0] != "/"
 
       self.data.deep_merge({
         "url"        => dir,
