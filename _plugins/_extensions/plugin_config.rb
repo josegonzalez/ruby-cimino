@@ -19,8 +19,6 @@ module Jekyll
     #
     # Returns an initialized Converter.
     def initialize(config = {})
-      super
-
       @config = config
 
       klass = underscore(self.class).gsub('jekyll/', '')
