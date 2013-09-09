@@ -43,7 +43,10 @@ task :generate do
 
   puts '* Generating Site with Jekyll'
   Dir.chdir(SOURCE_DIR) do
-    cmd = [ 'jekyll build', '--trace' ]
+    cmd = [ 'jekyll build' ]
+    cmd << '--trace' if ENV.fetch('JEKYLL_TEST', false)
+    cmd << "--limit_posts #{ENV['MAX_POSTS']}" if ENV.fetch('MAX_POSTS', false)
+    puts "  Running #{cmd.join(' ')}"
     system cmd.join(' ')
   end
 
