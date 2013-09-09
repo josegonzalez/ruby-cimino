@@ -42,6 +42,10 @@ module Liquid
       input.gsub(/(\w+)/) {|s| s.capitalize}
     end
 
+    def date_to_year(input)
+      time(input).strftime("%Y")
+    end
+
     def date_to_month(input)
       time(input).strftime("%B")
     end
@@ -50,12 +54,16 @@ module Liquid
       time(input).strftime("%b")
     end
 
-    def padded_month(input)
-      input.to_s.rjust(2, '0')
+    def padded_day(input)
+      time(input).strftime("%d")
     end
 
     def date_to_utc(input)
       input.getutc
+    end
+
+    def padded_number(input)
+      input.to_s.rjust(2, '0')
     end
 
     def number_to_month(input)
