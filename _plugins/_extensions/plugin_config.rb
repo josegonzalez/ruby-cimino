@@ -36,7 +36,7 @@ module Jekyll
       return if !config.key?("disabled_#{parent_klass}")
 
       disabled = config["disabled_#{parent_klass}"]
-      disabled = [disabled] if disabled.is_a?('String')
+      disabled = [disabled] if disabled.is_a?(String)
       @enabled = false if disabled.member?(klass)
     end
   end
