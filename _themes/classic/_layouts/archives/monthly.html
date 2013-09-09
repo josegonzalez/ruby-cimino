@@ -2,7 +2,7 @@
 layout: default
 ---
 <div id="home">
-  <h1>{{ page.month | date_to_month }}, {{ page.year }}</h1>
+  <h1>{{ page.month | number_to_month }}, {{ page.year }}</h1>
   <ul class="posts">
     {% for d in (1..31) reversed %}
       {% if page.collated_posts[page.year][page.month][d] %}

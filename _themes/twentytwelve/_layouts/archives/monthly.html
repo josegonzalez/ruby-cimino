@@ -3,8 +3,8 @@ layout: default
 body: full-width template-front-page
 comments: false
 ---
-{% capture title %}{{ page.month | date_to_month }} {{ page.year }}{% endcapture %}
-{% capture lead %}Posts from {{ page.month | date_to_month }}, {{ page.year }}{% endcapture %}
+{% capture title %}{{ page.month | number_to_month }} {{ page.year }}{% endcapture %}
+{% capture lead %}Posts from {{ page.month | number_to_month }}, {{ page.year }}{% endcapture %}
 {% capture content %}
   <ul>
     {% for d in (1..31) reversed %}

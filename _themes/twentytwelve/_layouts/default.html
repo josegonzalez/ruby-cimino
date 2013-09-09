@@ -79,8 +79,8 @@
 							{% for y in site.iterable.collation %}
 								{% for m in y[1] %}
 						  		<li>
-						  			<a href="/{{ y[0] }}/{{ m[0] | padded_month }}/" title="{{ m[0] | date_to_month }} {{ y[0] }}">
-						  				{{ m[0] | date_to_month }} {{ y[0] }}
+						  			<a href="/{{ y[0] }}/{{ m[0] | padded_number }}/" title="{{ m[0] | number_to_month }} {{ y[0] }}">
+						  				{{ m[0] | number_to_month }} {{ y[0] }}
 						  			</a>
 						  		</li>
 					  		{% endfor %}

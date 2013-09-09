@@ -8,7 +8,7 @@ comments: false
 {% capture content %}
   {% for m in (1..12) reversed %}
     {% if page.collated_posts[page.year][m] %}
-      <h4>{{ m | date_to_month }}</h4>
+      <h4>{{ m | number_to_month }}</h4>
       <ul>
       {% for d in (1..31) reversed %}
         {% if page.collated_posts[page.year][m][d] %}

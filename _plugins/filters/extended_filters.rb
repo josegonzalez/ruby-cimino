@@ -43,11 +43,11 @@ module Liquid
     end
 
     def date_to_month(input)
-      Date::MONTHNAMES[input]
+      time(input).strftime("%B")
     end
 
     def date_to_month_abbr(input)
-      Date::ABBR_MONTHNAMES[input]
+      time(input).strftime("%b")
     end
 
     def padded_month(input)
@@ -56,6 +56,10 @@ module Liquid
 
     def date_to_utc(input)
       input.getutc
+    end
+
+    def number_to_month(input)
+      Date::MONTHNAMES[input]
     end
 
     def to_json(input)
