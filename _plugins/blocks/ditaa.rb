@@ -29,6 +29,11 @@
 require 'fileutils'
 require 'digest/md5'
 
+DITAA_CACHE_DIR = File.dirname(__FILE__) + "/../../_tmp/ditaa"
+FileUtils.mkdir_p(DITAA_CACHE_DIR)
+File.chmod(0777, DITAA_CACHE_DIR)
+
+
 module Jekyll
   class DitaaBlock < Liquid::Block
     def initialize(tag_name, options, tokens)
@@ -53,8 +58,9 @@ module Jekyll
       if ditaa_exists
         if not File.exists?(@png_name)
           args = ' ' + options + ' -o'
-          File.open('/tmp/ditaa-foo.txt', 'w') {|f| f.write(ditaa)}
-          @png_exists = system('ditaa /tmp/ditaa-foo.txt ' + @png_name + args)
+          tmp_file = "#{DITAA_CACHE_DIR}/ditaa-#{hash}.txt"
+          File.open(tmp_file, 'w') {|f| f.write(ditaa)}
+          @png_exists = system("ditaa #{tmp_file} " + @png_name + args)
         end
       end
       @png_exists = File.exists?(@png_name)
@@ -64,7 +70,7 @@ module Jekyll
       return super if Liquid::Tag.disabled?(context, 'ditaa')
 
       if @png_exists
-        '<figure><a href="/' + @png_name + '" title="' + @png_name + '" ><img src="/' + @png_name + '" title="' + @png_name + '" max-width="99%" /></a></figure>'
+        '<figure class="ditaa-figure"><a href="/' + @png_name + '" title="' + @png_name + '" ><img src="/' + @png_name + '" title="' + @png_name + '" max-width="99%" /></a></figure>'
       else
         '<code><pre>' + super + '</pre></code>'
       end
