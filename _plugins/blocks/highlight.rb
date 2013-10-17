@@ -95,4 +95,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag('ditaa', Jekyll::EnhancedHighlightBlock)
+Liquid::Template.register_tag('highlight', Jekyll::EnhancedHighlightBlock)
