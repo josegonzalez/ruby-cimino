@@ -1,4 +1,12 @@
-source/*
-_site/*
-_tmp/*
+source/
+_site/
+_tmp/
+.vagrant
+
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+
 !empty
