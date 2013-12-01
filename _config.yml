@@ -73,6 +73,8 @@ destination:        ./_site
 # Changes the directory where Jekyll will look for plugins
 plugins:            ./_plugins
 
+# Inclusion of recent posts in sidebar
+recent_posts:       true
 # Inclusion/exclusion of future dated posts
 future:             true
 # Produces an index for related posts. Install rb-gsl and libgsl to speed this up
