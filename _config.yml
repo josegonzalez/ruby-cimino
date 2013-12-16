@@ -117,6 +117,8 @@ comments:           true
 category:           Code
 # Default format for new posts
 format:             markdown
+# Turn on redirection
+redirects:          yes
 
 # ----------------------- #
 #         Plugins         #
