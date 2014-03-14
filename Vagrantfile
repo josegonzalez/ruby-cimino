@@ -25,7 +25,7 @@ echo "- installing gem requirements"
 cd /vagrant
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 gem install bundler > /dev/null
-bundle install --development > /dev/null
+bundle install > /dev/null
 
 echo "- ensuring proper git config"
 su - vagrant -c 'git config --global user.name "#{git_name}"'
