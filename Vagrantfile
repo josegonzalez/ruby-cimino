@@ -59,7 +59,7 @@ service nginx reload > /dev/null
 
 if ! grep -q cd-to-directory "/home/vagrant/.bashrc"; then
   echo "- setting up auto chdir on ssh"
-  echo "\n[ -n \"\$SSH_CONNECTION\" ] && cd /vagrant # cd-to-directory" >> "/home/vagrant/.bashrc"
+  echo "\n[ -n \\"\\$SSH_CONNECTION\\" ] && cd /vagrant # cd-to-directory" >> "/home/vagrant/.bashrc"
 fi
 
 echo -e "- blog is running! run further commands using:\n"
