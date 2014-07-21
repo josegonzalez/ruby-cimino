@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
 git_name = %x(git config --get user.name).strip!
 git_email = %x(git config --get user.email).strip!
 
@@ -87,4 +89,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, inline: $script
 
   config.ssh.forward_agent = true
+
+  config.vm.provider :vmware_fusion do |v, override|
+    override.vm.box = "precise64_vmware_fusion"
+    override.vm.box_url = "http://files.vagrantup.com/precise64_vmware_fusion.box"
+  end
 end
